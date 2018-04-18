@@ -10,11 +10,20 @@ class ColorInput extends Component {
   handleChange(event) {
     const hex = event.target.value;
     this.setState({ value: hex });
-    this.props.onChange(this.props.keyName, hex);
+
+    if (hex.length === 7) {
+      this.props.onChange(this.props.keyName, hex);
+    }
   }
 
   render() {
     const { defaultValue, label } = this.props;
+
+    let colorInputValue = `#ffffff`;
+
+    if (this.state.value.length === 7) {
+      colorInputValue = this.state.value;
+    }
 
     return (
       <div className="ColorInput">
@@ -27,7 +36,7 @@ class ColorInput extends Component {
           />
           <input
             type="color"
-            value={this.state.value}
+            value={colorInputValue}
             onChange={this.handleChange}
             placeholder={defaultValue}
           />

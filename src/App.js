@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       bgColor: '#ffffff',
       textColor: '#000000',
-      linkColor: '#000000'
+      linkColor: '#0000ff'
     };
   }
 

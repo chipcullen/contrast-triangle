@@ -4,7 +4,7 @@ class ResultEmoji extends Component {
   render() {
     const { contrast, min } = this.props;
 
-    let emoji = '❎';
+    let emoji = '❌';
 
     if (contrast >= min) {
       emoji = '✅';

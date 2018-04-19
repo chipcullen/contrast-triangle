@@ -26,24 +26,27 @@ class App extends Component {
           textColor={this.state.textColor}
           linkColor={this.state.linkColor}
         />
-        <ColorInput
-          defaultValue={this.state.bgColor}
-          label="Background Color"
-          keyName="bgColor"
-          onChange={this.handleColorChange}
-        />
-        <ColorInput
-          defaultValue={this.state.textColor}
-          label="Text Color"
-          keyName="textColor"
-          onChange={this.handleColorChange}
-        />
-        <ColorInput
-          defaultValue={this.state.linkColor}
-          label="Link Color"
-          keyName="linkColor"
-          onChange={this.handleColorChange}
-        />
+
+        <div className="colorInputs">
+          <ColorInput
+            defaultValue={this.state.bgColor}
+            label="Background Color"
+            keyName="bgColor"
+            onChange={this.handleColorChange}
+          />
+          <ColorInput
+            defaultValue={this.state.textColor}
+            label="Text Color"
+            keyName="textColor"
+            onChange={this.handleColorChange}
+          />
+          <ColorInput
+            defaultValue={this.state.linkColor}
+            label="Link Color"
+            keyName="linkColor"
+            onChange={this.handleColorChange}
+          />
+        </div>
 
         <Results
           textColor={this.state.textColor}

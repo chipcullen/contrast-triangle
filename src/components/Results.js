@@ -13,16 +13,16 @@ class Results extends Component {
     return (
       <ul className="Results">
         <li>
-          <ResultEmoji contrast={textBgContrast} min="5" />
-          Text / Bg contrast is {textBgContrast}
+          <ResultEmoji contrast={textBgContrast} min="4.5" />
+          Text : Background contrast is {textBgContrast}
         </li>
         <li>
-          <ResultEmoji contrast={linkBgContrast} min="5" />
-          Link / Bg contrast is {linkBgContrast}
+          <ResultEmoji contrast={linkBgContrast} min="4.5" />
+          Link : Background contrast is {linkBgContrast}
         </li>
         <li>
           <ResultEmoji contrast={textLinkContrast} min="3" />
-          Text / Link contrast is {textLinkContrast}
+          Text : Link contrast is {textLinkContrast}
         </li>
       </ul>
     );

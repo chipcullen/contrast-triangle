@@ -28,6 +28,7 @@ class ColorInput extends Component {
     return (
       <div className="ColorInput">
         <label>
+          {label}
           <input
             type="text"
             value={this.state.value}
@@ -40,7 +41,6 @@ class ColorInput extends Component {
             onChange={this.handleChange}
             placeholder={defaultValue}
           />
-          {label}
         </label>
       </div>
     );

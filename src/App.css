@@ -26,7 +26,8 @@ body {
 
 .ColorInput {
   display: flex;
-  margin-right: 1rem; }
+  margin-right: 1rem;
+  margin-bottom: 0.5rem; }
   .ColorInput [type='text'] {
     max-width: 5rem;
     font-size: 1rem;

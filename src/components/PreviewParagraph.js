@@ -8,7 +8,10 @@ class PreviewParagraph extends Component {
         challenge. In order for a design to be{' '}
         <a
           href="https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast"
-          style={{ color: this.props.linkColor }}
+          style={{
+            color: this.props.linkColor,
+            textDecoration: this.props.textDecoration
+          }}
         >
           considered accessible
         </a>, there is now a three-sided design contraint - or what I call "The
@@ -16,7 +19,10 @@ class PreviewParagraph extends Component {
         <strong>all have sufficient contrast from each other</strong>.{' '}
         <a
           href="https://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/G183"
-          style={{ color: this.props.linkColor }}
+          style={{
+            color: this.props.linkColor,
+            textDecoration: this.props.textDecoration
+          }}
         >
           Links must have a contrast ratio of 3:1 from their surrounding text.
         </a>{' '}
@@ -26,7 +32,10 @@ class PreviewParagraph extends Component {
         this contrast level.{' '}
         <a
           href="https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast"
-          style={{ color: this.props.linkColor }}
+          style={{
+            color: this.props.linkColor,
+            textDecoration: this.props.textDecoration
+          }}
         >
           Both the text and links have to have a contrast ratio of 4.5:1, or 3:1
           if it's large scale text.

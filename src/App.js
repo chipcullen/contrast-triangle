@@ -4,6 +4,7 @@ import './App.css';
 import ColorInput from './components/ColorInput';
 import PreviewParagraph from './components/PreviewParagraph';
 import Results from './components/Results';
+import UnderlineControl from './components/UnderlineControl';
 
 class App extends Component {
   constructor(props) {
@@ -11,12 +12,18 @@ class App extends Component {
     this.state = {
       bgColor: '#ffffff',
       textColor: '#000000',
-      linkColor: '#0000ff'
+      linkColor: '#0000ff',
+      textDecoration: 'none'
     };
   }
 
   handleColorChange = (keyName, hex) => {
     this.setState({ [keyName]: hex });
+  };
+
+  handleUnderlineChange = (value) => {
+    const underlineState = value ? 'underline' : 'none';
+    this.setState({ textDecoration: underlineState });
   };
 
   render() {
@@ -25,6 +32,7 @@ class App extends Component {
         <PreviewParagraph
           textColor={this.state.textColor}
           linkColor={this.state.linkColor}
+          textDecoration={this.state.textDecoration}
         />
 
         <div className="colorInputs">
@@ -48,10 +56,16 @@ class App extends Component {
           />
         </div>
 
+        <UnderlineControl
+          textDecoration={this.state.textDecoration}
+          onChange={this.handleUnderlineChange}
+        />
+
         <Results
           textColor={this.state.textColor}
           linkColor={this.state.linkColor}
           bgColor={this.state.bgColor}
+          textDecoration={this.state.textDecoration}
         />
       </div>
     );

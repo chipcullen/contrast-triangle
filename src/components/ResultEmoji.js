@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 
 class ResultEmoji extends Component {
   render() {
-    const { contrast, min } = this.props;
+    const { contrast, min, warn } = this.props;
 
-    let emoji = '❌';
+    let emoji = `❌`;
 
     if (contrast >= min) {
-      emoji = '✅';
+      emoji = `✅`;
+    } else if (warn && contrast >= warn) {
+      emoji = `⚠️`;
     }
 
     return <span className="ResultEmoji">{emoji}</span>;

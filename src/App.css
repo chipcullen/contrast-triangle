@@ -45,3 +45,5 @@ body {
   padding: 1rem; }
   .Results li {
     margin-bottom: 0.5rem; }
+  .Results small {
+    display: block; }

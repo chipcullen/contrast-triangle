@@ -1,12 +1,12 @@
-import { hexToRgb } from './hex-to-rgb';
-import { getLuminance } from './get-luminance';
+import { toRgb } from "./to-rgb";
+import { getLuminance } from "./get-luminance";
 
-const calculateContrast = (hex1, hex2) => {
-  const hex1rgb = hexToRgb(hex1);
-  const hex2rgb = hexToRgb(hex2);
+const calculateContrast = (color1, color2) => {
+  const color1rgb = toRgb(color1);
+  const color2rgb = toRgb(color2);
 
-  const l1 = getLuminance(hex1rgb[0], hex1rgb[1], hex1rgb[2]);
-  const l2 = getLuminance(hex2rgb[0], hex2rgb[1], hex2rgb[2]);
+  const l1 = getLuminance(color1rgb[0], color1rgb[1], color1rgb[2]);
+  const l2 = getLuminance(color2rgb[0], color2rgb[1], color2rgb[2]);
 
   let contrast = 0;
 

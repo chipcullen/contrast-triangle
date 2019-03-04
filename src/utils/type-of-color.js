@@ -2,7 +2,7 @@ import { namedColors } from "./named-colors";
 
 // taking the named colors and converting them to lowercase
 // for comparison
-const lowerCaseNamedColors = namedColors.map(v => v.toLowerCase());
+const lowerCaseNamedColors = namedColors.map(c => c.toLowerCase());
 
 const typeOfColor = color => {
   switch (true) {

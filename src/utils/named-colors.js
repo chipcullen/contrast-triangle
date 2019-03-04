@@ -1,3 +1,5 @@
+// taken from this github gist comment
+// https://gist.github.com/bobspace/2712980#gistcomment-2688195
 const namedColors = [
   "AliceBlue",
   "AntiqueWhite",

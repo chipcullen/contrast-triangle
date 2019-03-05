@@ -8,13 +8,13 @@ const hexToRgb = hex => {
     b = 0;
 
   // 3 digits
-  if (hex.length == 4) {
+  if (hex.length === 4) {
     r = "0x" + hex[1] + hex[1];
     g = "0x" + hex[2] + hex[2];
     b = "0x" + hex[3] + hex[3];
 
     // 6 digits
-  } else if (hex.length == 7) {
+  } else if (hex.length === 7) {
     r = "0x" + hex[1] + hex[2];
     g = "0x" + hex[3] + hex[4];
     b = "0x" + hex[5] + hex[6];
@@ -32,8 +32,8 @@ const hslToRgb = hsl => {
     .split(sep);
 
   let h = hsl[0];
-  let s = hsl[1].substr(0, hsl[1].length - 1) / 100;
-  let l = hsl[2].substr(0, hsl[2].length - 1) / 100;
+  let s = hsl[1].substr(0, hsl[1].length - 1) / 100 || 0;
+  let l = hsl[2].substr(0, hsl[2].length - 1) / 100 || 0;
 
   // Strip label and convert to degrees (if necessary)
   if (h.indexOf("deg") > -1) {
@@ -87,21 +87,36 @@ const hslToRgb = hsl => {
   return [+r, +g, +b];
 };
 
+const rgbToRgb = rgb => {
+  const sep = rgb.indexOf(",") > -1 ? "," : " ";
+
+  rgb = rgb
+    .substr(4)
+    .split(")")[0]
+    .split(sep);
+
+  const r = rgb[0];
+  const g = rgb[1];
+  const b = rgb[2];
+
+  return [+r, +g, +b];
+};
+
 const toRgb = color => {
   switch (true) {
     case typeOfColor(color) === "hex3":
     case typeOfColor(color) === "hex6":
       return hexToRgb(color);
-      break;
+
+    case typeOfColor(color) === "rgb":
+      return rgbToRgb(color);
 
     case typeOfColor(color) === "hsl":
       return hslToRgb(color);
-      break;
 
     default:
       return undefined;
-      break;
   }
 };
 
-export { hexToRgb, hslToRgb, toRgb };
+export { hexToRgb, hslToRgb, rgbToRgb, toRgb };

@@ -1,4 +1,4 @@
-import { hexToRgb, hslToRgb } from "./to-rgb";
+import { hexToRgb, hslToRgb, rgbToRgb } from "./to-rgb";
 
 describe("Hex to RGB conversion", () => {
   it("correct rgb for black", () => {
@@ -40,10 +40,18 @@ describe("HSL to RGB conversion", () => {
     expect(hslToRgb("hsl(0, 0%, 100%)")[1]).toBe(255);
     expect(hslToRgb("hsl(0, 0%, 100%)")[2]).toBe(255);
   });
+});
 
-  // it("correct rgb for hotpink", () => {
-  //   expect(hexToRgb("#ff69b4")[0]).toBe(255);
-  //   expect(hexToRgb("#ff69b4")[1]).toBe(105);
-  //   expect(hexToRgb("#ff69b4")[2]).toBe(180);
-  // });
+describe("rgb to RGB conversion", () => {
+  it("correct rgb for black", () => {
+    expect(rgbToRgb("rgb(0, 0, 0)")[0]).toBe(0);
+    expect(rgbToRgb("rgb(0, 0, 0)")[1]).toBe(0);
+    expect(rgbToRgb("rgb(0, 0, 0)")[2]).toBe(0);
+  });
+
+  it("correct rgb for white", () => {
+    expect(rgbToRgb("rgb(255, 255, 255)")[0]).toBe(255);
+    expect(rgbToRgb("rgb(255, 255, 255)")[1]).toBe(255);
+    expect(rgbToRgb("rgb(255, 255, 255)")[2]).toBe(255);
+  });
 });

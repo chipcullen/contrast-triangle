@@ -3,6 +3,10 @@ import { typeOfColor } from "./type-of-color";
 describe("Type Of Color", () => {
   it("returns undefined for a bad value", () => {
     expect(typeOfColor("foo")).toBe(undefined);
+    expect(typeOfColor("#foo")).toBe(undefined);
+    expect(typeOfColor("#f000")).toBe(undefined);
+    expect(typeOfColor("foobar")).toBe(undefined);
+    expect(typeOfColor("#foobar")).toBe(undefined);
   });
 
   it("returns named for a named color", () => {
@@ -13,14 +17,17 @@ describe("Type Of Color", () => {
 
   it("returns hex6", () => {
     expect(typeOfColor("#ffffff")).toBe("hex6");
+    expect(typeOfColor("ffffff")).toBe("hex6");
   });
 
   it("returns hex3", () => {
     expect(typeOfColor("#fff")).toBe("hex3");
+    expect(typeOfColor("fff")).toBe("hex3");
   });
 
   it("returns hex8", () => {
-    expect(typeOfColor("#ffffff00")).toBe("hex8");
+    expect(typeOfColor("#ffffff0A")).toBe("hex8");
+    expect(typeOfColor("ffffff0A")).toBe("hex8");
   });
 
   it("returns rgba", () => {

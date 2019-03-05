@@ -6,43 +6,35 @@ const lowerCaseNamedColors = namedColors.map(c => c.toLowerCase());
 
 const typeOfColor = color => {
   switch (true) {
-    case color.indexOf("#") !== -1 && color.length === 4:
+    // https://stackoverflow.com/a/8027444/1173898
+    case /^(#)?[0-9A-F]{3}$/i.test(color):
       return "hex3";
-      break;
 
-    case color.indexOf("#") !== -1 && color.length === 7:
+    case /^(#)?[0-9A-F]{6}$/i.test(color):
       return "hex6";
-      break;
 
-    case color.indexOf("#") !== -1 && color.length === 9:
+    case /^(#)?[0-9A-F]{8}$/i.test(color):
       return "hex8";
-      break;
 
-    case color.indexOf("rgba") === 0:
+    case color.indexOf("rgba") === 0 && color.indexOf(")") !== -1:
       return "rgba";
-      break;
 
-    case color.indexOf("rgb") === 0:
+    case color.indexOf("rgb") === 0 && color.indexOf(")") !== -1:
       return "rgb";
-      break;
 
-    case color.indexOf("hsla") === 0:
+    case color.indexOf("hsla") === 0 && color.indexOf(")") !== -1:
       return "hsla";
-      break;
 
-    case color.indexOf("hsl") === 0:
+    case color.indexOf("hsl") === 0 && color.indexOf(")") !== -1:
       return "hsl";
-      break;
 
     // converting user input to lowercase so the input
     // can be "rebeccapurple" or "RebeccaPurple"
     case lowerCaseNamedColors.includes(color.toLowerCase()):
       return "named";
-      break;
 
     default:
       return undefined;
-      break;
   }
 };
 

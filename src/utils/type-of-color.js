@@ -13,6 +13,9 @@ const typeOfColor = color => {
     case /^(#)?[0-9A-F]{6}$/i.test(color):
       return "hex6";
 
+    case /^(#)?[0-9A-F]{4}$/i.test(color):
+      return "hex4";
+
     case /^(#)?[0-9A-F]{8}$/i.test(color):
       return "hex8";
 

@@ -1,4 +1,4 @@
-import { hexToRgb, hslToRgb, rgbToRgb } from "./to-rgb";
+import { hexToRgb, hslToRgb, rgbToRgb, toRgb } from "./to-rgb";
 
 describe("Hex to RGB conversion", () => {
   it("correct rgb for black", () => {
@@ -6,9 +6,17 @@ describe("Hex to RGB conversion", () => {
     expect(hexToRgb("#000000")[1]).toBe(0);
     expect(hexToRgb("#000000")[2]).toBe(0);
 
+    expect(hexToRgb("000000")[0]).toBe(0);
+    expect(hexToRgb("000000")[1]).toBe(0);
+    expect(hexToRgb("000000")[2]).toBe(0);
+
     expect(hexToRgb("#000")[0]).toBe(0);
     expect(hexToRgb("#000")[1]).toBe(0);
     expect(hexToRgb("#000")[2]).toBe(0);
+
+    expect(hexToRgb("000")[0]).toBe(0);
+    expect(hexToRgb("000")[1]).toBe(0);
+    expect(hexToRgb("000")[2]).toBe(0);
   });
 
   it("correct rgb for white", () => {
@@ -16,9 +24,17 @@ describe("Hex to RGB conversion", () => {
     expect(hexToRgb("#ffffff")[1]).toBe(255);
     expect(hexToRgb("#ffffff")[2]).toBe(255);
 
+    expect(hexToRgb("ffffff")[0]).toBe(255);
+    expect(hexToRgb("ffffff")[1]).toBe(255);
+    expect(hexToRgb("ffffff")[2]).toBe(255);
+
     expect(hexToRgb("#fff")[0]).toBe(255);
     expect(hexToRgb("#fff")[1]).toBe(255);
     expect(hexToRgb("#fff")[2]).toBe(255);
+
+    expect(hexToRgb("fff")[0]).toBe(255);
+    expect(hexToRgb("fff")[1]).toBe(255);
+    expect(hexToRgb("fff")[2]).toBe(255);
   });
 
   it("correct rgb for hotpink", () => {
@@ -53,5 +69,27 @@ describe("rgb to RGB conversion", () => {
     expect(rgbToRgb("rgb(255, 255, 255)")[0]).toBe(255);
     expect(rgbToRgb("rgb(255, 255, 255)")[1]).toBe(255);
     expect(rgbToRgb("rgb(255, 255, 255)")[2]).toBe(255);
+  });
+});
+
+// integration
+describe("To RGB conversion", () => {
+  it("correct rgb for black", () => {
+    expect(toRgb("hsl(0, 0%, 0%)")).toEqual([0, 0, 0]);
+    expect(toRgb("rgb(0, 0, 0)")).toEqual([0, 0, 0]);
+    expect(toRgb("#000")).toEqual([0, 0, 0]);
+    expect(toRgb("000")).toEqual([0, 0, 0]);
+    expect(toRgb("#000000")).toEqual([0, 0, 0]);
+    expect(toRgb("000000")).toEqual([0, 0, 0]);
+    // expect(toRgb("black")).toEqual([0, 0, 0]);
+  });
+
+  it("correct rgb for white", () => {
+    expect(toRgb("hsl(0, 0%, 100%)")).toEqual([255, 255, 255]);
+    expect(toRgb("rgb(255, 255, 255)")).toEqual([255, 255, 255]);
+    expect(toRgb("#fff")).toEqual([255, 255, 255]);
+    expect(toRgb("fff")).toEqual([255, 255, 255]);
+    expect(toRgb("#ffffff")).toEqual([255, 255, 255]);
+    expect(toRgb("ffffff")).toEqual([255, 255, 255]);
   });
 });

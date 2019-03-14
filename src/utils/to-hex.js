@@ -1,38 +1,29 @@
 import { typeOfColor } from "./type-of-color";
 
-// handles #000 or #000000
-// based on this function: https://css-tricks.com/converting-color-spaces-in-javascript/#article-header-id-3
-const hexToRgb = hex => {
-  let r = 0;
-  let g = 0;
-  let b = 0;
+// normalizes non-alpha hex values
+// handles 000, #000, 000000 or #000000
+const hexToHex = hex => {
+  let result = "";
 
-  // 3 digits - fff
+  // fff
   if (hex.length === 3) {
-    r = "0x" + hex[0] + hex[0];
-    g = "0x" + hex[1] + hex[1];
-    b = "0x" + hex[2] + hex[2];
+    result = `#${hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]}`;
   } else if (hex.length === 4) {
     // #fff
-    r = "0x" + hex[1] + hex[1];
-    g = "0x" + hex[2] + hex[2];
-    b = "0x" + hex[3] + hex[3];
+    result = `#${hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3]}`;
   } else if (hex.length === 6) {
     // ffffff
-    r = "0x" + hex[0] + hex[1];
-    g = "0x" + hex[2] + hex[3];
-    b = "0x" + hex[4] + hex[5];
+    result = `#${hex[0] + hex[1] + hex[2] + hex[3] + hex[4] + hex[5]}`;
   } else if (hex.length === 7) {
     // #ffffff
-    r = "0x" + hex[1] + hex[2];
-    g = "0x" + hex[3] + hex[4];
-    b = "0x" + hex[5] + hex[6];
+    result = `#${hex[1] + hex[2] + hex[3] + hex[4] + hex[5] + hex[6]}`;
   }
 
-  return [+r, +g, +b];
+  return result;
 };
 
-const hslToRgb = hsl => {
+// based on https://css-tricks.com/converting-color-spaces-in-javascript/#article-header-id-19
+const hslToHex = hsl => {
   const sep = hsl.indexOf(",") > -1 ? "," : " ";
 
   hsl = hsl
@@ -89,46 +80,55 @@ const hslToRgb = hsl => {
     g = 0;
     b = x;
   }
-  r = Math.round((r + m) * 255);
-  g = Math.round((g + m) * 255);
-  b = Math.round((b + m) * 255);
+  // Having obtained RGB, convert channels to hex
+  r = Math.round((r + m) * 255).toString(16);
+  g = Math.round((g + m) * 255).toString(16);
+  b = Math.round((b + m) * 255).toString(16);
 
-  return [+r, +g, +b];
+  // Prepend 0s, if necessary
+  if (r.length == 1) r = "0" + r;
+  if (g.length == 1) g = "0" + g;
+  if (b.length == 1) b = "0" + b;
+
+  return "#" + r + g + b;
 };
 
-const rgbToRgb = rgb => {
-  const sep = rgb.indexOf(",") > -1 ? "," : " ";
+// https://css-tricks.com/converting-color-spaces-in-javascript/#article-header-id-1
+const rgbToHex = rgb => {
+  let sep = rgb.indexOf(",") > -1 ? "," : " ";
 
+  // Turn "rgb(r,g,b)" into [r,g,b]
   rgb = rgb
     .substr(4)
     .split(")")[0]
     .split(sep);
 
-  const r = rgb[0];
-  const g = rgb[1];
-  const b = rgb[2];
+  let r = (+rgb[0]).toString(16),
+    g = (+rgb[1]).toString(16),
+    b = (+rgb[2]).toString(16);
 
-  return [+r, +g, +b];
+  if (r.length == 1) r = "0" + r;
+  if (g.length == 1) g = "0" + g;
+  if (b.length == 1) b = "0" + b;
+
+  return "#" + r + g + b;
 };
 
-const toRgb = color => {
+const toHex = color => {
   switch (true) {
     case typeOfColor(color) === "hex3":
     case typeOfColor(color) === "hex6":
-      return hexToRgb(color);
+      return hexToHex(color);
 
     case typeOfColor(color) === "rgb":
-      return rgbToRgb(color);
+      return rgbToHex(color);
 
     case typeOfColor(color) === "hsl":
-      return hslToRgb(color);
-
-    // case typeOfColor(color) === "named":
-    //   return namedToRgb(color);
+      return hslToHex(color);
 
     default:
       return undefined;
   }
 };
 
-export { hexToRgb, hslToRgb, rgbToRgb, toRgb };
+export { hexToHex, hslToHex, rgbToHex, toHex };

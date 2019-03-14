@@ -2,47 +2,51 @@ import { typeOfColor } from "./type-of-color";
 
 // handles #000 or #000000
 // based on this function: https://css-tricks.com/converting-color-spaces-in-javascript/#article-header-id-3
-const hexToRgb = hex => {
+const hexAToRgba = hex => {
   let r = 0;
   let g = 0;
   let b = 0;
+  let a = 1;
 
-  // 3 digits - fff
-  if (hex.length === 3) {
+  if (hex.length == 4) {
     r = "0x" + hex[0] + hex[0];
     g = "0x" + hex[1] + hex[1];
     b = "0x" + hex[2] + hex[2];
-  } else if (hex.length === 4) {
-    // #fff
+    a = "0x" + hex[3] + hex[3];
+  } else if (hex.length == 5) {
     r = "0x" + hex[1] + hex[1];
     g = "0x" + hex[2] + hex[2];
     b = "0x" + hex[3] + hex[3];
-  } else if (hex.length === 6) {
-    // ffffff
+    a = "0x" + hex[4] + hex[4];
+  } else if (hex.length == 8) {
     r = "0x" + hex[0] + hex[1];
     g = "0x" + hex[2] + hex[3];
     b = "0x" + hex[4] + hex[5];
-  } else if (hex.length === 7) {
-    // #ffffff
+    a = "0x" + hex[6] + hex[7];
+  } else if (hex.length == 9) {
     r = "0x" + hex[1] + hex[2];
     g = "0x" + hex[3] + hex[4];
     b = "0x" + hex[5] + hex[6];
+    a = "0x" + hex[7] + hex[8];
   }
+  a = +(a / 255).toFixed(3);
 
-  return [+r, +g, +b];
+  return [+r, +g, +b, +a];
 };
 
-const hslToRgb = hsl => {
-  const sep = hsl.indexOf(",") > -1 ? "," : " ";
-
-  hsl = hsl
-    .substr(4)
+const hslToRgba = hsla => {
+  let sep = hsla.indexOf(",") > -1 ? "," : " ";
+  hsla = hsla
+    .substr(5)
     .split(")")[0]
     .split(sep);
 
-  let h = hsl[0];
-  let s = hsl[1].substr(0, hsl[1].length - 1) / 100 || 0;
-  let l = hsl[2].substr(0, hsl[2].length - 1) / 100 || 0;
+  if (hsla.indexOf("/") > -1) hsla.splice(3, 1);
+
+  let h = hsla[0];
+  let s = hsla[1].substr(0, hsla[1].length - 1) / 100;
+  let l = hsla[2].substr(0, hsla[2].length - 1) / 100;
+  let a = hsla[3];
 
   // Strip label and convert to degrees (if necessary)
   if (h.indexOf("deg") > -1) {
@@ -93,42 +97,43 @@ const hslToRgb = hsl => {
   g = Math.round((g + m) * 255);
   b = Math.round((b + m) * 255);
 
-  return [+r, +g, +b];
+  return [+r, +g, +b, +a];
 };
 
-const rgbToRgb = rgb => {
-  const sep = rgb.indexOf(",") > -1 ? "," : " ";
+const rgbaToRgba = rgba => {
+  const sep = rgba.indexOf(",") > -1 ? "," : " ";
 
-  rgb = rgb
-    .substr(4)
+  rgba = rgba
+    .substr(5)
     .split(")")[0]
     .split(sep);
 
-  const r = rgb[0];
-  const g = rgb[1];
-  const b = rgb[2];
+  const r = rgba[0];
+  const g = rgba[1];
+  const b = rgba[2];
+  const a = rgba[3];
 
-  return [+r, +g, +b];
+  return [+r, +g, +b, +a];
 };
 
-const toRgb = color => {
+const toRgba = color => {
   switch (true) {
-    case typeOfColor(color) === "hex3":
-    case typeOfColor(color) === "hex6":
-      return hexToRgb(color);
+    case typeOfColor(color) === "hex4":
+    case typeOfColor(color) === "hex8":
+      return hexAToRgba(color);
 
-    case typeOfColor(color) === "rgb":
-      return rgbToRgb(color);
+    case typeOfColor(color) === "rgba":
+      return rgbToRgba(color);
 
-    case typeOfColor(color) === "hsl":
-      return hslToRgb(color);
+    case typeOfColor(color) === "hsla":
+      return hslToRgba(color);
 
     // case typeOfColor(color) === "named":
-    //   return namedToRgb(color);
+    //   return namedToRgba(color);
 
     default:
       return undefined;
   }
 };
 
-export { hexToRgb, hslToRgb, rgbToRgb, toRgb };
+export { hexAToRgba, hslToRgba, rgbaToRgba, toRgba };

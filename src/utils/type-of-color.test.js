@@ -4,7 +4,7 @@ describe("Type Of Color", () => {
   it("returns undefined for a bad value", () => {
     expect(typeOfColor("foo")).toBe(undefined);
     expect(typeOfColor("#foo")).toBe(undefined);
-    expect(typeOfColor("#f000")).toBe(undefined);
+    expect(typeOfColor("#fooo")).toBe(undefined);
     expect(typeOfColor("foobar")).toBe(undefined);
     expect(typeOfColor("#foobar")).toBe(undefined);
   });
@@ -23,6 +23,11 @@ describe("Type Of Color", () => {
   it("returns hex3", () => {
     expect(typeOfColor("#fff")).toBe("hex3");
     expect(typeOfColor("fff")).toBe("hex3");
+  });
+
+  it("returns hex4", () => {
+    expect(typeOfColor("#fff0")).toBe("hex4");
+    expect(typeOfColor("fff0")).toBe("hex4");
   });
 
   it("returns hex8", () => {

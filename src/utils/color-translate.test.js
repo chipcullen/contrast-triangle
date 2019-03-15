@@ -1,0 +1,51 @@
+import { colorTranslate } from "./color-translate";
+
+describe("Color Translate", () => {
+  it("returns undefined for bad values", () => {
+    expect(colorTranslate("foo", "bar", "zam")).toBe(undefined);
+  });
+
+  it("returns result from hsl", () => {
+    expect(colorTranslate("bgColor", "hsl(30, 100%, 50%)", [0, 0, 0])).toEqual({
+      alpha: false,
+      hex: "#ff8000",
+      rgb: [255, 128, 0],
+      type: "hsl",
+      userValue: "hsl(30, 100%, 50%)"
+    });
+  });
+
+  it("returns result for HSLA background", () => {
+    expect(
+      colorTranslate("bgColor", "hsla(30, 100%, 50%, .8)", [0, 0, 0])
+    ).toEqual({
+      alpha: true,
+      hex: "#ff9933",
+      rgb: [255, 153, 51],
+      type: "hsla",
+      userValue: "hsla(30, 100%, 50%, .8)"
+    });
+  });
+
+  it("returns result for HSLA text color", () => {
+    expect(
+      colorTranslate("textColor", "hsla(30, 100%, 50%, .8)", [0, 0, 0])
+    ).toEqual({
+      alpha: true,
+      hex: "#cc6600",
+      rgb: [204, 102, 0],
+      type: "hsla",
+      userValue: "hsla(30, 100%, 50%, .8)"
+    });
+  });
+
+  it("returns result for hex text color", () => {
+    expect(colorTranslate("textColor", "#badbad", [0, 0, 0])).toEqual({
+      alpha: false,
+      hex: "#badbad",
+      rgb: [186, 219, 173],
+      type: "hex6",
+      userValue: "#badbad"
+    });
+  });
+});

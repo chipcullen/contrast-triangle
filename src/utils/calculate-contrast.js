@@ -1,12 +1,8 @@
-import { toRgb } from "./to-rgb";
 import { getLuminance } from "./get-luminance";
 
 const calculateContrast = (color1, color2) => {
-  const color1rgb = toRgb(color1);
-  const color2rgb = toRgb(color2);
-
-  const l1 = getLuminance(color1rgb[0], color1rgb[1], color1rgb[2]);
-  const l2 = getLuminance(color2rgb[0], color2rgb[1], color2rgb[2]);
+  const l1 = getLuminance(color1[0], color1[1], color1[2]);
+  const l2 = getLuminance(color2[0], color2[1], color2[2]);
 
   let contrast = 0;
 

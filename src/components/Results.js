@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import { calculateContrast } from '../utils/calculate-contrast';
-import ResultEmoji from './ResultEmoji';
+import React, { Component } from "react";
+import { calculateContrast } from "../utils/calculate-contrast";
+import ResultEmoji from "./ResultEmoji";
 
 class Results extends Component {
   render() {
     const { bgColor, textColor, linkColor, textDecoration } = this.props;
-
     const textBgContrast = calculateContrast(textColor, bgColor);
     const linkBgContrast = calculateContrast(linkColor, bgColor);
     const textLinkContrast = calculateContrast(textColor, linkColor);
 
     const strikeStyle = () => {
-      if (textDecoration === 'underline') {
+      if (textDecoration === "underline") {
         return `line-through`;
       } else {
         return `none`;

@@ -86,9 +86,9 @@ const hslToHex = hsl => {
   b = Math.round((b + m) * 255).toString(16);
 
   // Prepend 0s, if necessary
-  if (r.length == 1) r = "0" + r;
-  if (g.length == 1) g = "0" + g;
-  if (b.length == 1) b = "0" + b;
+  if (r.length === 1) r = "0" + r;
+  if (g.length === 1) g = "0" + g;
+  if (b.length === 1) b = "0" + b;
 
   return "#" + r + g + b;
 };
@@ -107,9 +107,21 @@ const rgbToHex = rgb => {
     g = (+rgb[1]).toString(16),
     b = (+rgb[2]).toString(16);
 
-  if (r.length == 1) r = "0" + r;
-  if (g.length == 1) g = "0" + g;
-  if (b.length == 1) b = "0" + b;
+  if (r.length === 1) r = "0" + r;
+  if (g.length === 1) g = "0" + g;
+  if (b.length === 1) b = "0" + b;
+
+  return "#" + r + g + b;
+};
+
+const rgbArrayToHex = rgb => {
+  let r = (+Math.round(rgb[0])).toString(16),
+    g = (+Math.round(rgb[1])).toString(16),
+    b = (+Math.round(rgb[2])).toString(16);
+
+  if (r.length === 1) r = "0" + r;
+  if (g.length === 1) g = "0" + g;
+  if (b.length === 1) b = "0" + b;
 
   return "#" + r + g + b;
 };
@@ -131,4 +143,4 @@ const toHex = color => {
   }
 };
 
-export { hexToHex, hslToHex, rgbToHex, toHex };
+export { hexToHex, hslToHex, rgbToHex, rgbArrayToHex, toHex };

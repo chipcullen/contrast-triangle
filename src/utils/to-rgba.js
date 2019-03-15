@@ -8,22 +8,22 @@ const hexAToRgba = hex => {
   let b = 0;
   let a = 1;
 
-  if (hex.length == 4) {
+  if (hex.length === 4) {
     r = "0x" + hex[0] + hex[0];
     g = "0x" + hex[1] + hex[1];
     b = "0x" + hex[2] + hex[2];
     a = "0x" + hex[3] + hex[3];
-  } else if (hex.length == 5) {
+  } else if (hex.length === 5) {
     r = "0x" + hex[1] + hex[1];
     g = "0x" + hex[2] + hex[2];
     b = "0x" + hex[3] + hex[3];
     a = "0x" + hex[4] + hex[4];
-  } else if (hex.length == 8) {
+  } else if (hex.length === 8) {
     r = "0x" + hex[0] + hex[1];
     g = "0x" + hex[2] + hex[3];
     b = "0x" + hex[4] + hex[5];
     a = "0x" + hex[6] + hex[7];
-  } else if (hex.length == 9) {
+  } else if (hex.length === 9) {
     r = "0x" + hex[1] + hex[2];
     g = "0x" + hex[3] + hex[4];
     b = "0x" + hex[5] + hex[6];
@@ -123,7 +123,7 @@ const toRgba = color => {
       return hexAToRgba(color);
 
     case typeOfColor(color) === "rgba":
-      return rgbToRgba(color);
+      return rgbaToRgba(color);
 
     case typeOfColor(color) === "hsla":
       return hslToRgba(color);

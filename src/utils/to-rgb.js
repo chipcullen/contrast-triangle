@@ -111,6 +111,21 @@ const rgbToRgb = rgb => {
   return [+r, +g, +b];
 };
 
+const namedToRgb = name => {
+  // Create fake div
+  let fakeDiv = document.createElement("div");
+  fakeDiv.style.color = name;
+  document.body.appendChild(fakeDiv);
+
+  // Get color of div
+  let cs = window.getComputedStyle(fakeDiv);
+  let pv = cs.getPropertyValue("color");
+
+  // Remove div after obtaining desired color value
+  document.body.removeChild(fakeDiv);
+  return rgbToRgb(pv);
+};
+
 const toRgb = color => {
   switch (true) {
     case typeOfColor(color) === "hex3":
@@ -123,12 +138,12 @@ const toRgb = color => {
     case typeOfColor(color) === "hsl":
       return hslToRgb(color);
 
-    // case typeOfColor(color) === "named":
-    //   return namedToRgb(color);
+    case typeOfColor(color) === "named":
+      return namedToRgb(color);
 
     default:
       return undefined;
   }
 };
 
-export { hexToRgb, hslToRgb, rgbToRgb, toRgb };
+export { hexToRgb, hslToRgb, rgbToRgb, namedToRgb, toRgb };

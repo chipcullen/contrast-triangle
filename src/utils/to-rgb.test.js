@@ -1,4 +1,4 @@
-import { hexToRgb, hslToRgb, rgbToRgb, toRgb } from "./to-rgb";
+import { hexToRgb, hslToRgb, rgbToRgb, namedToRgb, toRgb } from "./to-rgb";
 
 describe("Hex to RGB conversion", () => {
   it("correct rgb for black", () => {
@@ -71,6 +71,18 @@ describe("rgb to RGB conversion", () => {
     expect(rgbToRgb("rgb(255, 255, 255)")[2]).toBe(255);
   });
 });
+
+// @todo add enzyme or react testing library
+// so that styles can be calcuated
+// describe("named to RGB conversion", () => {
+//   it("correct rgb for black", () => {
+//     expect(namedToRgb("black")).toEqual([0, 0, 0]);
+//   });
+
+//   it("correct rgb for white", () => {
+//     expect(namedToRgb("white")).toEqual([255, 255, 255]);
+//   });
+// });
 
 // integration
 describe("To RGB conversion", () => {

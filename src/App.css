@@ -1,5 +1,5 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif; }
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
 
 .App {
   padding: 3.75vw 0;
@@ -28,8 +28,8 @@ body {
   display: flex;
   margin-right: 1rem;
   margin-bottom: 0.5rem; }
-  .ColorInput [type='text'] {
-    max-width: 5rem;
+  .ColorInput [type="text"] {
+    max-width: 10rem;
     font-size: 1rem;
     padding: 0.1rem 0.25rem;
     margin-left: 0.5rem; }

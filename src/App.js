@@ -19,14 +19,14 @@ class App extends Component {
         alpha: false
       },
       textColor: {
-        userValue: "#000000",
+        userValue: "hsl(0, 0%, 0%)",
         hex: "#000000",
         rgb: [0, 0, 0],
         type: "hex6",
         alpha: false
       },
       linkColor: {
-        userValue: "#0000ff",
+        userValue: "rgba(0, 0, 255, 1)",
         hex: "#0000ff",
         rgb: [0, 0, 255],
         type: "hex6",

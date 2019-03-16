@@ -1,32 +1,41 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
+
+import ReactQueryParams from "react-query-params";
 
 import ColorInput from "./components/ColorInput";
 import PreviewParagraph from "./components/PreviewParagraph";
 import Results from "./components/Results";
 import UnderlineControl from "./components/UnderlineControl";
 import { colorTranslate } from "./utils/color-translate";
+import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
 
-class App extends Component {
+class App extends ReactQueryParams {
   constructor(props) {
     super(props);
     this.state = {
       bgColor: {
-        userValue: "#ffffff",
+        userValue: this.queryParams.bgColor
+          ? decodeURIComponent(this.queryParams.bgColor)
+          : "#ffffff",
         hex: "#ffffff",
         rgb: [255, 255, 255],
         type: "hex6",
         alpha: false
       },
       textColor: {
-        userValue: "hsl(0, 0%, 0%)",
+        userValue: this.queryParams.textColor
+          ? decodeURIComponent(this.queryParams.textColor)
+          : "hsl(0, 0%, 0%)",
         hex: "#000000",
         rgb: [0, 0, 0],
         type: "hex6",
         alpha: false
       },
       linkColor: {
-        userValue: "rgba(0, 0, 255, 1)",
+        userValue: this.queryParams.linkColor
+          ? decodeURIComponent(this.queryParams.linkColor)
+          : "rgba(0, 0, 255, 1)",
         hex: "#0000ff",
         rgb: [0, 0, 255],
         type: "hex6",
@@ -37,6 +46,10 @@ class App extends Component {
   }
 
   handleColorChange = (keyName, color) => {
+    this.setQueryParams({
+      [keyName]: color.replace("#", "%23")
+    });
+
     const translatedColor = colorTranslate(
       keyName,
       color,
@@ -57,11 +70,19 @@ class App extends Component {
     return (
       <div
         className="App"
-        style={{ backgroundColor: this.state.bgColor.userValue }}
+        style={{
+          backgroundColor: checkYourSelfBeforeYouHexYourself(
+            this.state.bgColor.userValue
+          )
+        }}
       >
         <PreviewParagraph
-          textColor={this.state.textColor.userValue}
-          linkColor={this.state.linkColor.userValue}
+          textColor={checkYourSelfBeforeYouHexYourself(
+            this.state.textColor.userValue
+          )}
+          linkColor={checkYourSelfBeforeYouHexYourself(
+            this.state.linkColor.userValue
+          )}
           textDecoration={this.state.textDecoration}
         />
 

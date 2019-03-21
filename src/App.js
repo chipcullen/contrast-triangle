@@ -10,39 +10,45 @@ import UnderlineControl from "./components/UnderlineControl";
 import { colorTranslate } from "./utils/color-translate";
 import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
 
+import {
+  ASSUMED_BACKGROUND_COLOR,
+  BGCOLOR,
+  TEXTCOLOR,
+  LINKCOLOR
+} from "./Constants";
+
 class App extends ReactQueryParams {
   constructor(props) {
     super(props);
     this.state = {
-      bgColor: {
-        userValue: this.queryParams.bgColor
-          ? decodeURIComponent(this.queryParams.bgColor)
-          : "#ffffff",
-        hex: "#ffffff",
-        rgb: [255, 255, 255],
-        type: "hex6",
-        alpha: false
-      },
-      textColor: {
-        userValue: this.queryParams.textColor
-          ? decodeURIComponent(this.queryParams.textColor)
-          : "hsl(0, 0%, 0%)",
-        hex: "#000000",
-        rgb: [0, 0, 0],
-        type: "hex6",
-        alpha: false
-      },
-      linkColor: {
-        userValue: this.queryParams.linkColor
-          ? decodeURIComponent(this.queryParams.linkColor)
-          : "rgba(0, 0, 255, 1)",
-        hex: "#0000ff",
-        rgb: [0, 0, 255],
-        type: "hex6",
-        alpha: false
-      },
       textDecoration: "none"
     };
+
+    const colorKeys = [BGCOLOR, TEXTCOLOR, LINKCOLOR];
+    const colorDefaults = ["#ffffff", "hsl(0, 0%, 0%)", "rgba(0, 0, 255, 1)"];
+
+    colorKeys.forEach((colorKey, i) => {
+      let translatedColor;
+      // if there are query parameters, we update with those
+      if (this.queryParams[colorKey]) {
+        translatedColor = colorTranslate(
+          colorKey,
+          decodeURIComponent(this.queryParams[colorKey]),
+          this.state[BGCOLOR] && this.state[BGCOLOR].rgb
+            ? this.state[BGCOLOR].rgb
+            : ASSUMED_BACKGROUND_COLOR
+        );
+      } else {
+        // set defaults
+        translatedColor = colorTranslate(
+          colorKey,
+          colorDefaults[i],
+          ASSUMED_BACKGROUND_COLOR
+        );
+      }
+
+      this.state[colorKey] = translatedColor;
+    });
   }
 
   handleColorChange = (keyName, color) => {
@@ -53,12 +59,29 @@ class App extends ReactQueryParams {
     const translatedColor = colorTranslate(
       keyName,
       color,
-      this.state.bgColor.rgb
+      this.state[BGCOLOR].rgb
     );
 
     this.setState({
       [keyName]: translatedColor
     });
+
+    if (keyName === BGCOLOR) {
+      [TEXTCOLOR, LINKCOLOR].forEach(colorKey => {
+        const colorState = this.state[colorKey];
+        if (colorState.alpha) {
+          const retranslatedColor = colorTranslate(
+            colorState,
+            colorState.userValue,
+            this.state[BGCOLOR].rgb
+          );
+
+          this.setState({
+            [colorKey]: retranslatedColor
+          });
+        }
+      });
+    }
   };
 
   handleUnderlineChange = value => {
@@ -78,35 +101,35 @@ class App extends ReactQueryParams {
       >
         <PreviewParagraph
           textColor={checkYourSelfBeforeYouHexYourself(
-            this.state.textColor.userValue
+            this.state[TEXTCOLOR].userValue
           )}
           linkColor={checkYourSelfBeforeYouHexYourself(
-            this.state.linkColor.userValue
+            this.state[LINKCOLOR].userValue
           )}
           textDecoration={this.state.textDecoration}
         />
 
         <div className="colorInputs">
           <ColorInput
-            defaultValue={this.state.bgColor.userValue}
+            defaultValue={this.state[BGCOLOR].userValue}
             label="Background Color"
-            keyName="bgColor"
+            keyName={BGCOLOR}
             onChange={this.handleColorChange}
-            hex={this.state.bgColor.hex}
+            hex={this.state[BGCOLOR].hex}
           />
           <ColorInput
-            defaultValue={this.state.textColor.userValue}
+            defaultValue={this.state[TEXTCOLOR].userValue}
             label="Text Color"
-            keyName="textColor"
+            keyName={TEXTCOLOR}
             onChange={this.handleColorChange}
-            hex={this.state.textColor.hex}
+            hex={this.state[TEXTCOLOR].hex}
           />
           <ColorInput
-            defaultValue={this.state.linkColor.userValue}
+            defaultValue={this.state[LINKCOLOR].userValue}
             label="Link Color"
-            keyName="linkColor"
+            keyName={LINKCOLOR}
             onChange={this.handleColorChange}
-            hex={this.state.linkColor.hex}
+            hex={this.state[LINKCOLOR].hex}
           />
         </div>
 
@@ -116,9 +139,9 @@ class App extends ReactQueryParams {
         />
 
         <Results
-          textColor={this.state.textColor.rgb}
-          linkColor={this.state.linkColor.rgb}
-          bgColor={this.state.bgColor.rgb}
+          textColor={this.state[TEXTCOLOR].rgb}
+          linkColor={this.state[LINKCOLOR].rgb}
+          bgColor={this.state[BGCOLOR].rgb}
           textDecoration={this.state.textDecoration}
         />
       </div>

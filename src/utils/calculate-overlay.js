@@ -9,7 +9,7 @@ const calculateOverlay = (foreGroundRgba, backgroundRgb) => {
   const bgB = backgroundRgb[2];
 
   const channelResult = (fg, bg, alpha) => {
-    return Math.round(alpha * fg + (1 - alpha) * bg);
+    return Math.floor(alpha * fg + (1 - alpha) * bg);
   };
 
   const r = channelResult(fgR, bgR, fgA);

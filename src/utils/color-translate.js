@@ -3,6 +3,7 @@ import { toRgba } from "./to-rgba";
 import { rgbArrayToHex, toHex } from "./to-hex";
 import { typeOfColor } from "./type-of-color";
 import { calculateOverlay } from "./calculate-overlay";
+import { ASSUMED_BACKGROUND_COLOR } from "../Constants";
 
 const colorTranslate = (keyName, color, bgColorRgb) => {
   // if no real color value, return undefined
@@ -11,7 +12,6 @@ const colorTranslate = (keyName, color, bgColorRgb) => {
   }
 
   const result = {};
-  const ASSUMED_BACKGROUND_COLOR = [255, 255, 255];
 
   result.userValue = color;
 

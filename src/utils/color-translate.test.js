@@ -20,8 +20,8 @@ describe("Color Translate", () => {
       colorTranslate("bgColor", "hsla(30, 100%, 50%, .8)", [0, 0, 0])
     ).toEqual({
       alpha: true,
-      hex: "#ff9933",
-      rgb: [255, 153, 51],
+      hex: "#ff9932",
+      rgb: [255, 153, 50],
       type: "hsla",
       userValue: "hsla(30, 100%, 50%, .8)"
     });

@@ -27,21 +27,11 @@ class App extends ReactQueryParams {
     const colorKeys = [BGCOLOR, TEXTCOLOR, LINKCOLOR];
     const colorDefaults = ["#ffffff", "hsl(0, 0%, 0%)", "rgba(0, 0, 255, 1)"];
 
-    // set defaults
     colorKeys.forEach((colorKey, i) => {
-      const translatedColor = colorTranslate(
-        colorKey,
-        colorDefaults[i],
-        ASSUMED_BACKGROUND_COLOR
-      );
-
-      this.state[colorKey] = translatedColor;
-    });
-
-    // if there are query parameters, we update with those
-    colorKeys.forEach(colorKey => {
+      let translatedColor;
+      // if there are query parameters, use those
       if (this.queryParams[colorKey]) {
-        const translatedColor = colorTranslate(
+        translatedColor = colorTranslate(
           colorKey,
           decodeURIComponent(this.queryParams[colorKey]),
           this.state[BGCOLOR] && this.state[BGCOLOR].rgb
@@ -50,7 +40,16 @@ class App extends ReactQueryParams {
         );
 
         this.state[colorKey] = translatedColor;
+      } else {
+        // use defaults
+        translatedColor = colorTranslate(
+          colorKey,
+          colorDefaults[i],
+          ASSUMED_BACKGROUND_COLOR
+        );
       }
+
+      this.state[colorKey] = translatedColor;
     });
   }
 

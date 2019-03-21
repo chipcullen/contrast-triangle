@@ -27,33 +27,36 @@ class App extends ReactQueryParams {
     const colorKeys = [BGCOLOR, TEXTCOLOR, LINKCOLOR];
     const colorDefaults = ["#ffffff", "hsl(0, 0%, 0%)", "rgba(0, 0, 255, 1)"];
 
+    // set defaults
     colorKeys.forEach((colorKey, i) => {
-      let translatedColor;
-      // if there are query parameters, we update with those
+      const translatedColor = colorTranslate(
+        colorKey,
+        colorDefaults[i],
+        ASSUMED_BACKGROUND_COLOR
+      );
+
+      this.state[colorKey] = translatedColor;
+    });
+
+    // if there are query parameters, we update with those
+    colorKeys.forEach(colorKey => {
       if (this.queryParams[colorKey]) {
-        translatedColor = colorTranslate(
+        const translatedColor = colorTranslate(
           colorKey,
           decodeURIComponent(this.queryParams[colorKey]),
           this.state[BGCOLOR] && this.state[BGCOLOR].rgb
             ? this.state[BGCOLOR].rgb
             : ASSUMED_BACKGROUND_COLOR
         );
-      } else {
-        // set defaults
-        translatedColor = colorTranslate(
-          colorKey,
-          colorDefaults[i],
-          ASSUMED_BACKGROUND_COLOR
-        );
-      }
 
-      this.state[colorKey] = translatedColor;
+        this.state[colorKey] = translatedColor;
+      }
     });
   }
 
   handleColorChange = (keyName, color) => {
     this.setQueryParams({
-      [keyName]: color.replace("#", "%23")
+      [keyName]: color.replace(/%/g, "%25").replace("#", "%23")
     });
 
     const translatedColor = colorTranslate(
@@ -95,7 +98,7 @@ class App extends ReactQueryParams {
         className="App"
         style={{
           backgroundColor: checkYourSelfBeforeYouHexYourself(
-            this.state.bgColor.userValue
+            this.state[BGCOLOR].userValue
           )
         }}
       >

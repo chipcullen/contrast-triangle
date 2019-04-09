@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React from "react";
 
-class ResultEmoji extends Component {
-  render() {
-    const { contrast, min, warn } = this.props;
+const ResultEmoji = props => {
+  const { contrast, min, warn } = props;
 
-    let emoji = `❌`;
+  let emoji = `❌`;
 
-    if (contrast >= min) {
-      emoji = `✅`;
-    } else if (warn && contrast >= warn) {
-      emoji = `⚠️`;
-    }
-
-    return <span className="ResultEmoji">{emoji}</span>;
+  if (contrast >= min) {
+    emoji = `✅`;
+  } else if (warn && contrast >= warn) {
+    emoji = `⚠️`;
   }
-}
+
+  return <span className="ResultEmoji">{emoji}</span>;
+};
 
 export default ResultEmoji;

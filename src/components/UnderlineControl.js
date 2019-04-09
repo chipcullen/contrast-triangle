@@ -1,34 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from "react";
 
-class UnderlineControl extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { checked: false };
-    this.handleChange = this.handleChange.bind(this);
-  }
+const UnderlineControl = props => {
+  const [checked, setChecked] = useState(false);
 
-  handleChange(event) {
-    const checked = this.state.checked ? false : true;
-    this.setState({ checked: checked });
-    this.props.onChange(checked);
-  }
+  useEffect(() => {
+    props.onChange(checked);
+  }, [checked]);
 
-  render() {
-    // const { defaultValue, label } = this.props;
-
-    return (
-      <div className="UnderlineControl">
-        <label>
-          Show underlines
-          <input
-            type="checkbox"
-            checked={this.state.checked}
-            onChange={this.handleChange}
-          />
-        </label>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="UnderlineControl">
+      <label>
+        Show underlines
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={() => setChecked(!checked)}
+        />
+      </label>
+    </div>
+  );
+};
 
 export default UnderlineControl;

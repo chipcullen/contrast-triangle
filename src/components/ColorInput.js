@@ -8,7 +8,7 @@ const ColorInput = props => {
     if (typeOfColor(value) !== undefined) {
       props.onChange(props.keyName, value);
     }
-  }, [value]);
+  }, [props, value]);
 
   const { defaultValue, hex, label } = props;
 

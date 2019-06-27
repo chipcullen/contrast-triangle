@@ -5,7 +5,7 @@ const UnderlineControl = props => {
 
   useEffect(() => {
     props.onChange(checked);
-  }, [checked]);
+  }, [props, checked]);
 
   return (
     <div className="UnderlineControl">

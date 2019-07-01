@@ -54,9 +54,6 @@ class App extends ReactQueryParams {
   }
 
   handleColorChange = (keyName, color) => {
-    console.log("setQueryParams should fire");
-    console.log(color.replace(/%/g, "%25").replace("#", "%23"));
-
     this.setQueryParams({
       [keyName]: color.replace(/%/g, "%25").replace("#", "%23")
     });

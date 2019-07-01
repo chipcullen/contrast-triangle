@@ -4,13 +4,13 @@ import { typeOfColor } from "../utils/type-of-color";
 const ColorInput = props => {
   const [value, setValue] = useState(props.defaultValue);
 
+  const { defaultValue, hex, label, keyName, onChange } = props;
+
   useEffect(() => {
     if (typeOfColor(value) !== undefined) {
-      props.onChange(props.keyName, value);
+      onChange(keyName, value);
     }
-  }, [props, value]);
-
-  const { defaultValue, hex, label } = props;
+  }, [keyName, onChange, value]);
 
   return (
     <div className="ColorInput">

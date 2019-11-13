@@ -2,11 +2,11 @@ import { typeOfColor } from "./type-of-color";
 
 // handles #000 or #000000
 // based on this function: https://css-tricks.com/converting-color-spaces-in-javascript/#article-header-id-3
-const hexAToRgba = hex => {
-  let r = 0;
-  let g = 0;
-  let b = 0;
-  let a = 1;
+const hexAToRgba = (hex: string) => {
+  let r: string | number = 0;
+  let g: string | number = 0;
+  let b: string | number = 0;
+  let a: string | number = 1;
 
   if (hex.length === 4) {
     r = "0x" + hex[0] + hex[0];
@@ -29,14 +29,16 @@ const hexAToRgba = hex => {
     b = "0x" + hex[5] + hex[6];
     a = "0x" + hex[7] + hex[8];
   }
-  a = +(a / 255).toFixed(3);
+  a = +((a as number) / 255).toFixed(3);
 
   return [+r, +g, +b, +a];
 };
 
-const hslToRgba = hsla => {
-  let sep = hsla.indexOf(",") > -1 ? "," : " ";
-  hsla = hsla
+// @TODO untangle this type
+const hslToRgba = (hslaarg: any) => {
+  const sep: string = hslaarg.indexOf(",") > -1 ? "," : " ";
+
+  const hsla = hslaarg
     .substr(5)
     .split(")")[0]
     .split(sep);
@@ -100,7 +102,7 @@ const hslToRgba = hsla => {
   return [+r, +g, +b, +a];
 };
 
-const rgbaToRgba = rgba => {
+const rgbaToRgba = (rgba: any) => {
   const sep = rgba.indexOf(",") > -1 ? "," : " ";
 
   rgba = rgba
@@ -116,7 +118,7 @@ const rgbaToRgba = rgba => {
   return [+r, +g, +b, +a];
 };
 
-const toRgba = color => {
+const toRgba = (color: string) => {
   switch (true) {
     case typeOfColor(color) === "hex4":
     case typeOfColor(color) === "hex8":

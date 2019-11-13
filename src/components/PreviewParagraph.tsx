@@ -1,6 +1,6 @@
 import React from "react";
 
-const PreviewParagraph = props => {
+const PreviewParagraph = (props: any) => {
   return (
     <p className="preview-paragraph" style={{ color: props.textColor }}>
       Removing underlines from links in HTML text presents an accessibility

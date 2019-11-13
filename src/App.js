@@ -6,6 +6,7 @@ import ReactQueryParams from "react-query-params";
 import ColorInput from "./components/ColorInput";
 import PreviewParagraph from "./components/PreviewParagraph";
 import Results from "./components/Results";
+import ResultCard from "./components/ResultCard";
 import UnderlineControl from "./components/UnderlineControl";
 import { colorTranslate } from "./utils/color-translate";
 import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
@@ -144,6 +145,11 @@ class App extends ReactQueryParams {
           textColor={this.state[TEXTCOLOR].rgb}
           linkColor={this.state[LINKCOLOR].rgb}
           bgColor={this.state[BGCOLOR].rgb}
+          textDecoration={this.state.textDecoration}
+        />
+
+        <ResultCard
+          label="Text:Background"
           textDecoration={this.state.textDecoration}
         />
       </div>

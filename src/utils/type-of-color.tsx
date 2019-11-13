@@ -4,7 +4,7 @@ import { namedColors } from "./named-colors";
 // for comparison
 const lowerCaseNamedColors = namedColors.map(c => c.toLowerCase());
 
-const typeOfColor = color => {
+const typeOfColor = (color: string) => {
   switch (true) {
     // https://stackoverflow.com/a/8027444/1173898
     case /^(#)?[0-9A-F]{3}$/i.test(color):

@@ -2,7 +2,7 @@ import React from "react";
 import { calculateContrast } from "../utils/calculate-contrast";
 import ResultEmoji from "./ResultEmoji";
 
-const Results = props => {
+const Results = (props: any) => {
   const { bgColor, textColor, linkColor, textDecoration } = props;
   const textBgContrast = calculateContrast(textColor, bgColor);
   const linkBgContrast = calculateContrast(linkColor, bgColor);

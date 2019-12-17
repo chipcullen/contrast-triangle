@@ -1,15 +1,25 @@
 import React from "react";
 
-const PreviewParagraph = (props: any) => {
+type PreviewParagraphProps = {
+  textColor: string;
+  linkColor: string;
+  textDecoration: string;
+};
+
+const PreviewParagraph = ({
+  textColor,
+  linkColor,
+  textDecoration
+}: PreviewParagraphProps) => {
   return (
-    <p className="preview-paragraph" style={{ color: props.textColor }}>
+    <p className="preview-paragraph" style={{ color: textColor }}>
       Removing underlines from links in HTML text presents an accessibility
       challenge. In order for a design to be{" "}
       <a
         href="https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast"
         style={{
-          color: props.linkColor,
-          textDecoration: props.textDecoration
+          color: linkColor,
+          textDecoration: textDecoration
         }}
       >
         considered accessible
@@ -20,8 +30,8 @@ const PreviewParagraph = (props: any) => {
       <a
         href="https://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/G183"
         style={{
-          color: props.linkColor,
-          textDecoration: props.textDecoration
+          color: linkColor,
+          textDecoration: textDecoration
         }}
       >
         Links must have a contrast ratio of 3:1 from their surrounding text.
@@ -33,8 +43,8 @@ const PreviewParagraph = (props: any) => {
       <a
         href="https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast"
         style={{
-          color: props.linkColor,
-          textDecoration: props.textDecoration
+          color: linkColor,
+          textDecoration: textDecoration
         }}
       >
         Both the text and links have to have a contrast ratio of 4.5:1, or 3:1

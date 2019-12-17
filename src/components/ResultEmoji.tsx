@@ -7,8 +7,6 @@ type ResultEmojiProps = {
 };
 
 const ResultEmoji = ({ contrast, min, warn }: ResultEmojiProps) => {
-  // const { contrast, min, warn } = props;
-
   let emoji = `❌`;
 
   if (contrast >= min) {

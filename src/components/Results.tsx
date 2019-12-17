@@ -19,12 +19,12 @@ const Results = (props: any) => {
   return (
     <ul className="Results">
       <li title="Minimum need: 3 for large text, 4.5 for normal">
-        <ResultEmoji contrast={textBgContrast} min="4.5" warn="3" /> Text :
+        <ResultEmoji contrast={textBgContrast} min={4.5} warn={3} /> Text :
         Background contrast is {textBgContrast}
         <small>(Needed: 3 for large text, 4.5 for normal)</small>
       </li>
       <li>
-        <ResultEmoji contrast={linkBgContrast} min="4.5" warn="3" /> Link :
+        <ResultEmoji contrast={linkBgContrast} min={4.5} warn={3} /> Link :
         Background contrast is {linkBgContrast}
         <small>(Needed: 3 for large text, 4.5 for normal)</small>
       </li>
@@ -33,7 +33,7 @@ const Results = (props: any) => {
           textDecoration: strikeStyle()
         }}
       >
-        <ResultEmoji contrast={textLinkContrast} min="3" /> Text : Link contrast
+        <ResultEmoji contrast={textLinkContrast} min={3} /> Text : Link contrast
         is {textLinkContrast}
         <small>(Needed: 3 if underlines are absent)</small>
       </li>

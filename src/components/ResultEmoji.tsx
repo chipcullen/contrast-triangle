@@ -1,7 +1,13 @@
 import React from "react";
 
-const ResultEmoji = (props: any) => {
-  const { contrast, min, warn } = props;
+type ResultEmojiProps = {
+  contrast: number;
+  min: number;
+  warn?: number;
+};
+
+const ResultEmoji = ({ contrast, min, warn }: ResultEmojiProps) => {
+  // const { contrast, min, warn } = props;
 
   let emoji = `❌`;
 

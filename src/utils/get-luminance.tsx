@@ -1,5 +1,5 @@
 // https://gist.github.com/jfsiii/5641126
-const getLuminance = (r, g, b) => {
+const getLuminance = (r: number, g: number, b: number): number => {
   const RsRGB = r / 255;
   const GsRGB = g / 255;
   const BsRGB = b / 255;

@@ -148,10 +148,10 @@ class App extends ReactQueryParams {
           textDecoration={this.state.textDecoration}
         />
 
-        <ResultCard
+        {/* <ResultCard
           label="Text:Background"
           textDecoration={this.state.textDecoration}
-        />
+        /> */}
       </div>
     );
   }

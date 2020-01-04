@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const UnderlineControl = (props: any) => {
+type UnderlineControlProps = {
+  onChange: Function;
+};
+
+const UnderlineControl: React.FC<UnderlineControlProps> = props => {
   const [checked, setChecked] = useState(false);
 
   const { onChange } = props;

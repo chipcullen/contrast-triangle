@@ -2,7 +2,7 @@ import { typeOfColor } from "./type-of-color";
 
 // handles #000 or #000000
 // based on this function: https://css-tricks.com/converting-color-spaces-in-javascript/#article-header-id-3
-const hexAToRgba = (hex: string) => {
+const hexaToRgba = (hex: string) => {
   let r: string | number = 0;
   let g: string | number = 0;
   let b: string | number = 0;
@@ -34,30 +34,43 @@ const hexAToRgba = (hex: string) => {
   return [+r, +g, +b, +a];
 };
 
-// @TODO untangle this type
-const hslToRgba = (hslaarg: any) => {
-  const sep: string = hslaarg.indexOf(",") > -1 ? "," : " ";
+type Deg = number;
+type Rad = number;
+type Turn = number;
+type Hue = Deg | Rad | Turn;
 
-  const hsla = hslaarg
+const stringToHue = (input: string): Hue => {
+  const inputAsNum = Number(input.substr(0, input.length - 3));
+
+  if (input.indexOf("deg") > -1) {
+    return inputAsNum;
+  } else if (input.indexOf("rad") > -1) {
+    return Math.round(inputAsNum * (180 / Math.PI));
+  } else if (input.indexOf("turn") > -1) {
+    return Math.round(Number(input.substr(0, input.length - 4)) * 360);
+  } else {
+    return Number(input);
+  }
+};
+
+// @TODO untangle this type
+const hslaToRgba = (hslaArg: any): number[] => {
+  const sep: string = hslaArg.indexOf(",") > -1 ? "," : " ";
+
+  const hsla: any = hslaArg
     .substr(5)
     .split(")")[0]
     .split(sep);
 
+  // console.log(typeof hsla);
+  // console.log(hsla);
+
   if (hsla.indexOf("/") > -1) hsla.splice(3, 1);
 
-  let h = hsla[0];
-  let s = hsla[1].substr(0, hsla[1].length - 1) / 100;
-  let l = hsla[2].substr(0, hsla[2].length - 1) / 100;
+  let h: Hue = stringToHue(hsla[0]);
+  let s = parseInt(hsla[1].substr(0, hsla[1].length - 1)) / 100;
+  let l = parseInt(hsla[2].substr(0, hsla[2].length - 1)) / 100;
   let a = hsla[3];
-
-  // Strip label and convert to degrees (if necessary)
-  if (h.indexOf("deg") > -1) {
-    h = h.substr(0, h.length - 3);
-  } else if (h.indexOf("rad") > -1) {
-    h = Math.round(h.substr(0, h.length - 3) * (180 / Math.PI));
-  } else if (h.indexOf("turn") > -1) {
-    h = Math.round(h.substr(0, h.length - 4) * 360);
-  }
 
   // Keep hue fraction of 360 if ending up over
   if (h >= 360) {
@@ -122,13 +135,13 @@ const toRgba = (color: string) => {
   switch (true) {
     case typeOfColor(color) === "hex4":
     case typeOfColor(color) === "hex8":
-      return hexAToRgba(color);
+      return hexaToRgba(color);
 
     case typeOfColor(color) === "rgba":
       return rgbaToRgba(color);
 
     case typeOfColor(color) === "hsla":
-      return hslToRgba(color);
+      return hslaToRgba(color);
 
     // case typeOfColor(color) === "named":
     //   return namedToRgba(color);
@@ -138,4 +151,4 @@ const toRgba = (color: string) => {
   }
 };
 
-export { hexAToRgba, hslToRgba, rgbaToRgba, toRgba };
+export { hexaToRgba, hslaToRgba, rgbaToRgba, toRgba };

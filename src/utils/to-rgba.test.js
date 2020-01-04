@@ -1,71 +1,71 @@
-import { hexAToRgba, hslToRgba, rgbaToRgba, toRgba } from "./to-rgba";
+import { hexaToRgba, hslaToRgba, rgbaToRgba, toRgba } from "./to-rgba";
 
 describe("HexA to RGBA conversion", () => {
   it("correct rgba for black", () => {
-    expect(hexAToRgba("#00000000")[0]).toBe(0);
-    expect(hexAToRgba("#00000000")[1]).toBe(0);
-    expect(hexAToRgba("#00000000")[2]).toBe(0);
-    expect(hexAToRgba("#00000000")[3]).toBe(0);
+    expect(hexaToRgba("#00000000")[0]).toBe(0);
+    expect(hexaToRgba("#00000000")[1]).toBe(0);
+    expect(hexaToRgba("#00000000")[2]).toBe(0);
+    expect(hexaToRgba("#00000000")[3]).toBe(0);
 
-    expect(hexAToRgba("00000000")[0]).toBe(0);
-    expect(hexAToRgba("00000000")[1]).toBe(0);
-    expect(hexAToRgba("00000000")[2]).toBe(0);
-    expect(hexAToRgba("00000000")[3]).toBe(0);
+    expect(hexaToRgba("00000000")[0]).toBe(0);
+    expect(hexaToRgba("00000000")[1]).toBe(0);
+    expect(hexaToRgba("00000000")[2]).toBe(0);
+    expect(hexaToRgba("00000000")[3]).toBe(0);
 
-    expect(hexAToRgba("#0000")[0]).toBe(0);
-    expect(hexAToRgba("#0000")[1]).toBe(0);
-    expect(hexAToRgba("#0000")[2]).toBe(0);
-    expect(hexAToRgba("#0000")[3]).toBe(0);
+    expect(hexaToRgba("#0000")[0]).toBe(0);
+    expect(hexaToRgba("#0000")[1]).toBe(0);
+    expect(hexaToRgba("#0000")[2]).toBe(0);
+    expect(hexaToRgba("#0000")[3]).toBe(0);
 
-    expect(hexAToRgba("0000")[0]).toBe(0);
-    expect(hexAToRgba("0000")[1]).toBe(0);
-    expect(hexAToRgba("0000")[2]).toBe(0);
-    expect(hexAToRgba("0000")[3]).toBe(0);
+    expect(hexaToRgba("0000")[0]).toBe(0);
+    expect(hexaToRgba("0000")[1]).toBe(0);
+    expect(hexaToRgba("0000")[2]).toBe(0);
+    expect(hexaToRgba("0000")[3]).toBe(0);
   });
 
   it("correct rgba for white", () => {
-    expect(hexAToRgba("#ffffff00")[0]).toBe(255);
-    expect(hexAToRgba("#ffffff00")[1]).toBe(255);
-    expect(hexAToRgba("#ffffff00")[2]).toBe(255);
-    expect(hexAToRgba("#ffffff00")[3]).toBe(0);
+    expect(hexaToRgba("#ffffff00")[0]).toBe(255);
+    expect(hexaToRgba("#ffffff00")[1]).toBe(255);
+    expect(hexaToRgba("#ffffff00")[2]).toBe(255);
+    expect(hexaToRgba("#ffffff00")[3]).toBe(0);
 
-    expect(hexAToRgba("ffffff00")[0]).toBe(255);
-    expect(hexAToRgba("ffffff00")[1]).toBe(255);
-    expect(hexAToRgba("ffffff00")[2]).toBe(255);
-    expect(hexAToRgba("ffffff00")[3]).toBe(0);
+    expect(hexaToRgba("ffffff00")[0]).toBe(255);
+    expect(hexaToRgba("ffffff00")[1]).toBe(255);
+    expect(hexaToRgba("ffffff00")[2]).toBe(255);
+    expect(hexaToRgba("ffffff00")[3]).toBe(0);
 
-    expect(hexAToRgba("#fff0")[0]).toBe(255);
-    expect(hexAToRgba("#fff0")[1]).toBe(255);
-    expect(hexAToRgba("#fff0")[2]).toBe(255);
-    expect(hexAToRgba("#fff0")[3]).toBe(0);
+    expect(hexaToRgba("#fff0")[0]).toBe(255);
+    expect(hexaToRgba("#fff0")[1]).toBe(255);
+    expect(hexaToRgba("#fff0")[2]).toBe(255);
+    expect(hexaToRgba("#fff0")[3]).toBe(0);
 
-    expect(hexAToRgba("fff0")[0]).toBe(255);
-    expect(hexAToRgba("fff0")[1]).toBe(255);
-    expect(hexAToRgba("fff0")[2]).toBe(255);
-    expect(hexAToRgba("fff0")[3]).toBe(0);
+    expect(hexaToRgba("fff0")[0]).toBe(255);
+    expect(hexaToRgba("fff0")[1]).toBe(255);
+    expect(hexaToRgba("fff0")[2]).toBe(255);
+    expect(hexaToRgba("fff0")[3]).toBe(0);
   });
 
   it("correct rgba for hotpink", () => {
-    expect(hexAToRgba("#ff69b400")[0]).toBe(255);
-    expect(hexAToRgba("#ff69b400")[1]).toBe(105);
-    expect(hexAToRgba("#ff69b400")[2]).toBe(180);
-    expect(hexAToRgba("#ff69b400")[3]).toBe(0);
+    expect(hexaToRgba("#ff69b400")[0]).toBe(255);
+    expect(hexaToRgba("#ff69b400")[1]).toBe(105);
+    expect(hexaToRgba("#ff69b400")[2]).toBe(180);
+    expect(hexaToRgba("#ff69b400")[3]).toBe(0);
   });
 });
 
 describe("HSLa to RGBa conversion", () => {
   it("correct rgb for black", () => {
-    expect(hslToRgba("hsla(0, 0%, 0%, 1)")[0]).toBe(0);
-    expect(hslToRgba("hsla(0, 0%, 0%, 1)")[1]).toBe(0);
-    expect(hslToRgba("hsla(0, 0%, 0%, 1)")[2]).toBe(0);
-    expect(hslToRgba("hsla(0, 0%, 0%, 1)")[3]).toBe(1);
+    expect(hslaToRgba("hsla(0, 0%, 0%, 1)")[0]).toBe(0);
+    expect(hslaToRgba("hsla(0, 0%, 0%, 1)")[1]).toBe(0);
+    expect(hslaToRgba("hsla(0, 0%, 0%, 1)")[2]).toBe(0);
+    expect(hslaToRgba("hsla(0, 0%, 0%, 1)")[3]).toBe(1);
   });
 
   it("correct rgba for white", () => {
-    expect(hslToRgba("hsla(0, 0%, 100%, 1)")[0]).toBe(255);
-    expect(hslToRgba("hsla(0, 0%, 100%, 1)")[1]).toBe(255);
-    expect(hslToRgba("hsla(0, 0%, 100%, 1)")[2]).toBe(255);
-    expect(hslToRgba("hsla(0, 0%, 100%, 1)")[3]).toBe(1);
+    expect(hslaToRgba("hsla(0, 0%, 100%, 1)")[0]).toBe(255);
+    expect(hslaToRgba("hsla(0, 0%, 100%, 1)")[1]).toBe(255);
+    expect(hslaToRgba("hsla(0, 0%, 100%, 1)")[2]).toBe(255);
+    expect(hslaToRgba("hsla(0, 0%, 100%, 1)")[3]).toBe(1);
   });
 });
 

@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { typeOfColor } from "../utils/type-of-color";
 
-const ColorInput = props => {
-  const [value, setValue] = useState(props.defaultValue);
+type ColorInputProps = {
+  defaultValue: string;
+  hex: string;
+  label: string;
+  keyName: string;
+  onChange: Function;
+};
 
+const ColorInput: React.FC<ColorInputProps> = props => {
   const { defaultValue, hex, label, keyName, onChange } = props;
+
+  const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
     if (typeOfColor(value) !== undefined) {
@@ -15,7 +23,7 @@ const ColorInput = props => {
   return (
     <div className="ColorInput">
       <label>
-        {label}
+        <span>{label}</span>
         <input
           type="text"
           value={value}

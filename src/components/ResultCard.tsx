@@ -2,11 +2,30 @@ import React from "react";
 import { calculateContrast } from "../utils/calculate-contrast";
 import ResultEmoji from "./ResultEmoji";
 
-const ResultCard = (props: any) => {
-  const { bgColor, textColor, linkColor, textDecoration, label } = props;
-  // const textBgContrast = calculateContrast(textColor, bgColor);
-  // const linkBgContrast = calculateContrast(linkColor, bgColor);
-  // const textLinkContrast = calculateContrast(textColor, linkColor);
+type ResultCardProps = {
+  color1: string;
+  color2: string;
+  min: number;
+  warn?: number;
+  textDecoration: string;
+  label1: string;
+  label2: string;
+  className: string;
+};
+
+const ResultCard: React.FC<ResultCardProps> = props => {
+  const {
+    color1,
+    color2,
+    min,
+    warn,
+    textDecoration,
+    label1,
+    label2,
+    className
+  } = props;
+
+  const contrast = calculateContrast(color1, color2);
 
   const opacityStyle = () => {
     if (textDecoration === "underline") {
@@ -17,8 +36,17 @@ const ResultCard = (props: any) => {
   };
 
   return (
-    <div className="result-card" style={{ opacity: opacityStyle() }}>
-      <p>{label}</p>
+    <div
+      className={`result-card ${className}`}
+      style={{ opacity: opacityStyle() }}
+    >
+      <h3>
+        {label1}:<span>{label2}</span>
+      </h3>
+
+      <p>{contrast}:1</p>
+
+      <ResultEmoji contrast={contrast} min={min} warn={warn} />
     </div>
   );
 };

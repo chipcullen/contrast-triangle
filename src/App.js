@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 
 import ReactQueryParams from "react-query-params";
 
@@ -95,63 +95,91 @@ class App extends ReactQueryParams {
   render() {
     return (
       <div
-        className="App"
+        className="app"
         style={{
           backgroundColor: checkYourSelfBeforeYouHexYourself(
             this.state[BGCOLOR].userValue
           )
         }}
       >
-        <PreviewParagraph
-          textColor={checkYourSelfBeforeYouHexYourself(
-            this.state[TEXTCOLOR].userValue
-          )}
-          linkColor={checkYourSelfBeforeYouHexYourself(
-            this.state[LINKCOLOR].userValue
-          )}
-          textDecoration={this.state.textDecoration}
-        />
+        <div className="app__inner">
+          <h1>The Contrast Triangle</h1>
+          <PreviewParagraph
+            textColor={checkYourSelfBeforeYouHexYourself(
+              this.state[TEXTCOLOR].userValue
+            )}
+            linkColor={checkYourSelfBeforeYouHexYourself(
+              this.state[LINKCOLOR].userValue
+            )}
+            textDecoration={this.state.textDecoration}
+          />
 
-        <div className="colorInputs">
-          <ColorInput
-            defaultValue={this.state[BGCOLOR].userValue}
-            label="Background Color"
-            keyName={BGCOLOR}
-            onChange={this.handleColorChange}
-            hex={this.state[BGCOLOR].hex}
-          />
-          <ColorInput
-            defaultValue={this.state[TEXTCOLOR].userValue}
-            label="Text Color"
-            keyName={TEXTCOLOR}
-            onChange={this.handleColorChange}
-            hex={this.state[TEXTCOLOR].hex}
-          />
-          <ColorInput
-            defaultValue={this.state[LINKCOLOR].userValue}
-            label="Link Color"
-            keyName={LINKCOLOR}
-            onChange={this.handleColorChange}
-            hex={this.state[LINKCOLOR].hex}
+          <div className="controls">
+            <ColorInput
+              defaultValue={this.state[TEXTCOLOR].userValue}
+              label="Text"
+              keyName={TEXTCOLOR}
+              onChange={this.handleColorChange}
+              hex={this.state[TEXTCOLOR].hex}
+              className="color-input--text"
+            />
+            <ColorInput
+              defaultValue={this.state[LINKCOLOR].userValue}
+              label="Link"
+              keyName={LINKCOLOR}
+              onChange={this.handleColorChange}
+              hex={this.state[LINKCOLOR].hex}
+              className="color-input--link"
+            />
+            <ColorInput
+              defaultValue={this.state[BGCOLOR].userValue}
+              label="Background"
+              keyName={BGCOLOR}
+              onChange={this.handleColorChange}
+              hex={this.state[BGCOLOR].hex}
+              className="color-input--bg"
+            />
+            <UnderlineControl
+              textDecoration={this.state.textDecoration}
+              onChange={this.handleUnderlineChange}
+            />
+            <ResultCard
+              label1="Link"
+              label2="Text"
+              color1={this.state[LINKCOLOR].rgb}
+              color2={this.state[TEXTCOLOR].rgb}
+              min={3}
+              textDecoration={this.state.textDecoration}
+              className="result-card--link-text"
+            />
+            <ResultCard
+              label1="Background"
+              label2="Text"
+              color1={this.state[TEXTCOLOR].rgb}
+              color2={this.state[BGCOLOR].rgb}
+              min={4.5}
+              warn={3}
+              className="result-card--bg-text"
+            />
+
+            <ResultCard
+              label1="Background"
+              label2="Link"
+              color1={this.state[LINKCOLOR].rgb}
+              color2={this.state[BGCOLOR].rgb}
+              min={4.5}
+              warn={3}
+              className="result-card--bg-link"
+            />
+          </div>
+
+          <Results
+            textColor={this.state[TEXTCOLOR].rgb}
+            linkColor={this.state[LINKCOLOR].rgb}
+            bgColor={this.state[BGCOLOR].rgb}
+            textDecoration={this.state.textDecoration}
           />
         </div>
-
-        <UnderlineControl
-          textDecoration={this.state.textDecoration}
-          onChange={this.handleUnderlineChange}
-        />
-
-        <Results
-          textColor={this.state[TEXTCOLOR].rgb}
-          linkColor={this.state[LINKCOLOR].rgb}
-          bgColor={this.state[BGCOLOR].rgb}
-          textDecoration={this.state.textDecoration}
-        />
-
-        {/* <ResultCard
-          label="Text:Background"
-          textDecoration={this.state.textDecoration}
-        /> */}
       </div>
     );
   }

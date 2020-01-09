@@ -14,7 +14,7 @@ const UnderlineControl: React.FC<UnderlineControlProps> = props => {
   }, [onChange, checked]);
 
   return (
-    <div className="UnderlineControl">
+    <div className="underline-control">
       <label>
         Show underlines
         <input

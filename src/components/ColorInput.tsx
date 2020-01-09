@@ -6,11 +6,12 @@ type ColorInputProps = {
   hex: string;
   label: string;
   keyName: string;
+  className: string;
   onChange: Function;
 };
 
 const ColorInput: React.FC<ColorInputProps> = props => {
-  const { defaultValue, hex, label, keyName, onChange } = props;
+  const { defaultValue, hex, label, keyName, className, onChange } = props;
 
   const [value, setValue] = useState(defaultValue);
 
@@ -21,7 +22,7 @@ const ColorInput: React.FC<ColorInputProps> = props => {
   }, [keyName, onChange, value]);
 
   return (
-    <div className="ColorInput">
+    <div className={`color-input ${className}`}>
       <label>
         <span>{label}</span>
         <input

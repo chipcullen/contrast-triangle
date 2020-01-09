@@ -3,10 +3,28 @@ body {
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
-.App {
+.app {
   padding: 3.75vw 0;
   height: 100%;
   min-height: 100vh;
+}
+
+.app__inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "title"
+    "preview"
+    "controls";
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "title preview"
+      "controls controls";
+  }
 }
 
 .preview-paragraph {
@@ -20,34 +38,55 @@ body {
   }
 }
 
-.colorInputs {
-  width: calc(100% - 2rem);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.controls {
+  grid-area: controls;
+  display: grid;
+  // outline: 1px solid green;
 
-  @media (min-width: 700px) {
-    flex-direction: row;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-areas:
+      "color-input-text . . result-card-link-text . . color-input-link"
+      ". result-card-text-bg . underline-control . result-card-link-bg ."
+      ". . . color-input-bg . . .";
   }
 }
 
-.ColorInput {
+.color-input {
   display: flex;
   margin-right: 1rem;
   margin-bottom: 0.5rem;
+  // outline: 1px solid purple;
+
+  label {
+    font-weight: bold;
+    span {
+      display: block;
+    }
+  }
 
   [type="text"] {
     max-width: 10rem;
     font-size: 1rem;
     padding: 0.1rem 0.25rem;
-    margin-left: 0.5rem;
   }
 }
 
-.UnderlineControl {
+.color-input--text {
+  grid-area: color-input-text;
+}
+
+.color-input--link {
+  grid-area: color-input-link;
+}
+.color-input--bg {
+  grid-area: color-input-bg;
+}
+.underline-control {
+  grid-area: underline-control;
   text-align: center;
 }
+
 .Results {
   max-width: 18rem;
   margin: 2rem auto;
@@ -63,4 +102,43 @@ body {
   small {
     display: block;
   }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.result-card {
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  }
+  width: 150px;
+  padding: 10px 20px 20px 20px;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background: lightgray;
+  text-align: center;
+
+  h3 {
+    margin: 0 0 10px 0;
+    span {
+      display: block;
+    }
+  }
+}
+
+.result-card--link-text {
+  grid-area: result-card-link-text;
+}
+
+.result-card--bg-text {
+  grid-area: result-card-text-bg;
+}
+
+.result-card--bg-link {
+  grid-area: result-card-link-bg;
+}
+
+.ResultEmoji {
+  cursor: help;
 }

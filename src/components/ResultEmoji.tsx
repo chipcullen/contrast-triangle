@@ -6,7 +6,9 @@ type ResultEmojiProps = {
   warn?: number;
 };
 
-const ResultEmoji = ({ contrast, min, warn }: ResultEmojiProps) => {
+const ResultEmoji: React.FC<ResultEmojiProps> = props => {
+  const { contrast, min, warn } = props;
+
   let emoji = `❌`;
 
   if (contrast >= min) {
@@ -15,7 +17,17 @@ const ResultEmoji = ({ contrast, min, warn }: ResultEmojiProps) => {
     emoji = `⚠️`;
   }
 
-  return <span className="ResultEmoji">{emoji}</span>;
+  let helptext = `Need ${min}:1 to pass`;
+
+  if (warn) {
+    helptext += `, or ${warn}:1 at large sizes`;
+  }
+
+  return (
+    <span className="ResultEmoji" title={helptext}>
+      {emoji}
+    </span>
+  );
 };
 
 export default ResultEmoji;

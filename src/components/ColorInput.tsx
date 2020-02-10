@@ -25,18 +25,20 @@ const ColorInput: React.FC<ColorInputProps> = props => {
     <div className={`color-input ${className}`}>
       <label>
         <span>{label}</span>
-        <input
-          type="text"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          placeholder={defaultValue}
-        />
-        <input
-          type="color"
-          value={hex}
-          onChange={e => setValue(e.target.value)}
-          placeholder={defaultValue}
-        />
+        <span className="color-input__inputs-wrapper">
+          <input
+            type="text"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            placeholder={defaultValue}
+          />
+          <input
+            type="color"
+            value={hex}
+            onChange={e => setValue(e.target.value)}
+            placeholder={defaultValue}
+          />
+        </span>
       </label>
     </div>
   );

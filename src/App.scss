@@ -1,3 +1,5 @@
+$bp: 800px;
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -19,8 +21,8 @@ body {
     "preview"
     "controls";
 
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
+  @media (min-width: $bp) {
+    grid-template-columns: 1fr 2fr;
     grid-template-areas:
       "title preview"
       "controls controls";
@@ -43,12 +45,13 @@ body {
   display: grid;
   // outline: 1px solid green;
 
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(7, 1fr);
+  @media (min-width: $bp) {
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 1fr 0.5fr 0.5fr 0.5fr;
+    align-items: center;
     grid-template-areas:
-      "color-input-text . . result-card-link-text . . color-input-link"
-      ". result-card-text-bg . underline-control . result-card-link-bg ."
-      ". . . color-input-bg . . .";
+      "color-input-text color-input-text    . result-card-link-text . color-input-link    color-input-link"
+      " .               result-card-text-bg . underline-control     . result-card-link-bg ."
+      " .               .                   . color-input-bg        . .                   .";
   }
 }
 
@@ -63,6 +66,10 @@ body {
     span {
       display: block;
     }
+  }
+
+  .color-input__inputs-wrapper {
+    display: flex;
   }
 
   [type="text"] {
@@ -103,18 +110,25 @@ body {
     display: block;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: $bp) {
     display: none;
   }
 }
 
+.result-card-wrapper {
+  position: relative;
+}
+
 .result-card {
   display: none;
-  @media (min-width: 768px) {
+  z-index: 1;
+  position: relative;
+  @media (min-width: $bp) {
     display: block;
   }
   width: 150px;
   padding: 10px 20px 20px 20px;
+  margin: 0 20px;
   clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
   background: lightgray;
   text-align: center;
@@ -127,8 +141,40 @@ body {
   }
 }
 
+@mixin arrow-before() {
+  &::before {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 15px;
+    background: red;
+    position: absolute;
+    left: -20px;
+    top: 50%;
+  }
+}
+
+@mixin arrow-after() {
+  &::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 15px;
+    background: blue;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    z-index: 0;
+  }
+}
+
 .result-card--link-text {
   grid-area: result-card-link-text;
+
+  @media (min-width: $bp) {
+    // @include arrow-before();
+    // @include arrow-after();
+  }
 }
 
 .result-card--bg-text {
@@ -141,4 +187,96 @@ body {
 
 .ResultEmoji {
   cursor: help;
+}
+
+// underline control
+
+$buttonsize: 32px;
+
+.underline-control__toggle {
+  position: relative;
+  height: $buttonsize;
+  padding: 4px ($buttonsize / 2);
+  transition: background-color 0.2s ease-in;
+  border: 0;
+  border-radius: ($buttonsize / 2);
+  box-shadow: inset 0 0 1px 2px hsla(0, 0, 0, 0.2);
+  color: white;
+  font-size: 16px;
+  text-align: center;
+
+  // the circle thingy
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: calc(50% - #{$buttonsize / 2});
+    width: $buttonsize - 4;
+    height: $buttonsize - 4;
+    transition: transform 0.2s ease-in;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 0s;
+    }
+
+    border-radius: 50%;
+    background-color: lightgray;
+    filter: drop-shadow(0 1px 2px hsla(0, 0, 0, 0.3));
+  }
+
+  // the text labels
+  .enabled,
+  .disabled {
+    position: relative;
+    transition: opacity 0.1s ease-in;
+    transition-delay: 0.1s;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 0s;
+      transition-delay: 0s;
+    }
+
+    pointer-events: none;
+  }
+
+  .enabled {
+    left: 0;
+  }
+
+  .disabled {
+    left: 0;
+  }
+
+  &[aria-checked="true"] {
+    background-color: black;
+
+    &::before {
+      transform: translateX(24px);
+    }
+
+    .enabled {
+      opacity: 1;
+    }
+
+    .disabled {
+      opacity: 0;
+    }
+  }
+
+  &[aria-checked="false"] {
+    background-color: grey;
+
+    &::before {
+      transform: translateX(-20px);
+    }
+
+    .enabled {
+      opacity: 0;
+    }
+
+    .disabled {
+      opacity: 1;
+    }
+  }
 }

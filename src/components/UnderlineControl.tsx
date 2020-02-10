@@ -15,14 +15,17 @@ const UnderlineControl: React.FC<UnderlineControlProps> = props => {
 
   return (
     <div className="underline-control">
-      <label>
-        Show underlines
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={() => setChecked(!checked)}
-        />
-      </label>
+      <h3>Show underlines:</h3>
+      <button
+        role="switch"
+        aria-checked={checked}
+        onClick={() => setChecked(!checked)}
+        className="underline-control__toggle"
+        aria-label={`Toggle underlines ${checked ? `Off` : `On`}`}
+      >
+        <span className="enabled">On</span>
+        <span className="disabled">Off</span>
+      </button>
     </div>
   );
 };

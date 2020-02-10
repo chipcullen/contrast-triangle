@@ -37,16 +37,18 @@ const ResultCard: React.FC<ResultCardProps> = props => {
 
   return (
     <div
-      className={`result-card ${className}`}
+      className={`result-card-wrapper ${className}`}
       style={{ opacity: opacityStyle() }}
     >
-      <h3>
-        {label1}:<span>{label2}</span>
-      </h3>
+      <div className="result-card">
+        <h3>
+          {label1}:<span>{label2}</span>
+        </h3>
 
-      <p>{contrast}:1</p>
+        <p>{contrast}:1</p>
 
-      <ResultEmoji contrast={contrast} min={min} warn={warn} />
+        <ResultEmoji contrast={contrast} min={min} warn={warn} />
+      </div>
     </div>
   );
 };

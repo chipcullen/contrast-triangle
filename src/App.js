@@ -11,6 +11,8 @@ import UnderlineControl from "./components/UnderlineControl";
 import { colorTranslate } from "./utils/color-translate";
 import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
 
+import { ReactComponent as Logo } from "./contrast-triangle-logo.svg";
+
 import {
   ASSUMED_BACKGROUND_COLOR,
   BGCOLOR,
@@ -103,7 +105,7 @@ class App extends ReactQueryParams {
         }}
       >
         <div className="app__inner">
-          <h1>The Contrast Triangle</h1>
+          <Logo />
           <PreviewParagraph
             textColor={checkYourSelfBeforeYouHexYourself(
               this.state[TEXTCOLOR].userValue

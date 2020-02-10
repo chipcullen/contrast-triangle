@@ -15,7 +15,7 @@ const UnderlineControl: React.FC<UnderlineControlProps> = props => {
 
   return (
     <div className="underline-control">
-      <h3>Show underlines:</h3>
+      <h2>Show underlines:</h2>
       <button
         role="switch"
         aria-checked={checked}

@@ -31,12 +31,14 @@ const ColorInput: React.FC<ColorInputProps> = props => {
             value={value}
             onChange={e => setValue(e.target.value)}
             placeholder={defaultValue}
+            title={`Enter ${label} as a string`}
           />
           <input
             type="color"
             value={hex}
             onChange={e => setValue(e.target.value)}
             placeholder={defaultValue}
+            title={`Enter ${label} with a color picker`}
           />
         </span>
       </label>

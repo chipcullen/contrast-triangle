@@ -29,7 +29,7 @@ const ResultCard: React.FC<ResultCardProps> = props => {
 
   const opacityStyle = () => {
     if (textDecoration === "underline") {
-      return 0.5;
+      return 0.2;
     } else {
       return 1;
     }
@@ -41,9 +41,9 @@ const ResultCard: React.FC<ResultCardProps> = props => {
       style={{ opacity: opacityStyle() }}
     >
       <div className="result-card">
-        <h3>
+        <h2>
           {label1}:<span>{label2}</span>
-        </h3>
+        </h2>
 
         <p>{contrast}:1</p>
 

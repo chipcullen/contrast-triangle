@@ -105,7 +105,11 @@ class App extends ReactQueryParams {
         }}
       >
         <div className="app__inner">
-          <Logo />
+          <header>
+            <h1 className="logo">
+              <Logo />
+            </h1>
+          </header>
           <PreviewParagraph
             textColor={checkYourSelfBeforeYouHexYourself(
               this.state[TEXTCOLOR].userValue

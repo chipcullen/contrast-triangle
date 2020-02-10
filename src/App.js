@@ -186,6 +186,9 @@ class App extends ReactQueryParams {
             textDecoration={this.state.textDecoration}
           />
         </div>
+        <footer>
+          &copy; 2020 <a href="https://chipcullen.com">chip cullen</a>
+        </footer>
       </div>
     );
   }

@@ -187,7 +187,8 @@ class App extends ReactQueryParams {
           />
         </div>
         <footer>
-          &copy; 2020 <a href="https://chipcullen.com">chip cullen</a> |{" "}
+          &copy; {new Date().getFullYear()}{" "}
+          <a href="https://chipcullen.com">chip cullen</a> |{" "}
           <a href="https://chipcullen.com/the-contrast-triangle/">
             explanatory blog post
           </a>{" "}

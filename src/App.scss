@@ -37,6 +37,10 @@ header {
 
 .logo {
   max-width: 400px;
+
+  svg {
+    width: 100%;
+  }
 }
 
 .preview-paragraph {
@@ -79,6 +83,7 @@ header {
 
   label {
     font-weight: bold;
+
     span {
       display: block;
     }
@@ -102,9 +107,11 @@ header {
 .color-input--link {
   grid-area: color-input-link;
 }
+
 .color-input--bg {
   grid-area: color-input-bg;
 }
+
 .underline-control {
   grid-area: underline-control;
   text-align: center;
@@ -139,9 +146,11 @@ header {
   display: none;
   z-index: 1;
   position: relative;
+
   @media (min-width: $bp) {
     display: block;
   }
+
   width: 150px;
   padding: 10px 20px 20px 20px;
   margin: 0 20px;
@@ -152,6 +161,7 @@ header {
   h2 {
     margin: 0 0 10px 0;
     font-size: 1.2rem;
+
     span {
       display: block;
     }

@@ -187,7 +187,18 @@ class App extends ReactQueryParams {
           />
         </div>
         <footer>
-          &copy; 2020 <a href="https://chipcullen.com">chip cullen</a>
+          &copy; 2020 <a href="https://chipcullen.com">chip cullen</a> |{" "}
+          <a href="https://chipcullen.com/the-contrast-triangle/">
+            explanatory blog post
+          </a>{" "}
+          |{" "}
+          <a href="https://github.com/chipcullen/contrast-triangle">
+            this project on github
+          </a>{" "}
+          |{" "}
+          <a href="https://twitter.com/chipcullen">
+            i'm occasionally on twitter
+          </a>
         </footer>
       </div>
     );

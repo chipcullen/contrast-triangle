@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
-
-import ReactQueryParams from "react-query-params";
 
 import ColorInput from "./components/ColorInput";
 import PreviewParagraph from "./components/PreviewParagraph";
@@ -20,7 +18,8 @@ import {
   LINKCOLOR
 } from "./Constants";
 
-class App extends ReactQueryParams {
+// eslint-disable-next-line
+class OldApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -186,24 +185,64 @@ class App extends ReactQueryParams {
             textDecoration={this.state.textDecoration}
           />
         </div>
-        <footer>
-          &copy; {new Date().getFullYear()}{" "}
-          <a href="https://chipcullen.com">chip cullen</a> |{" "}
-          <a href="https://chipcullen.com/the-contrast-triangle/">
-            explanatory blog post
-          </a>{" "}
-          |{" "}
-          <a href="https://github.com/chipcullen/contrast-triangle">
-            this project on github
-          </a>{" "}
-          |{" "}
-          <a href="https://twitter.com/chipcullen">
-            i'm occasionally on twitter
-          </a>
-        </footer>
+
       </div>
     );
   }
+}
+
+
+
+
+const App = () => {
+
+  const [textDecoration, setTextDecoration] = useState(`none`)
+
+  const handleUnderlineChange = checked => {
+    const underlineState = checked ? `underline` : `none`;
+    setTextDecoration(underlineState);
+  };
+
+  return (
+    <div
+    className="app"
+      // style={{
+      //   backgroundColor: checkYourSelfBeforeYouHexYourself(
+      //     this.state[BGCOLOR].userValue
+      //   )
+      // }}
+    >
+      <div className="app__inner">
+        <header>
+          <h1 className="logo">
+            <Logo />
+          </h1>
+        </header>
+        <div className="controls">
+          <UnderlineControl
+            // textDecoration={textDecoration}
+            onChange={handleUnderlineChange}
+          />
+        </div>
+      </div>
+
+      <footer>
+        &copy; {new Date().getFullYear()}{" "}
+        <a href="https://chipcullen.com">chip cullen</a> |{" "}
+        <a href="https://chipcullen.com/the-contrast-triangle/">
+          explanatory blog post
+        </a>{" "}
+        |{" "}
+        <a href="https://github.com/chipcullen/contrast-triangle">
+          this project on github
+        </a>{" "}
+        |{" "}
+        <a href="https://twitter.com/chipcullen">
+          i'm occasionally on twitter
+        </a>
+      </footer>
+    </div>
+  )
 }
 
 export default App;

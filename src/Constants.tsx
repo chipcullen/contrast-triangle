@@ -1,0 +1,18 @@
+const ASSUMED_BACKGROUND_COLOR = [255, 255, 255];
+const BGCOLOR = "bgColor";
+const TEXTCOLOR = "textColor";
+const LINKCOLOR = "linkColor";
+
+const DEFAULTBGCOLOR = "#ffffff";
+const DEFAULTTEXTCOLOR = "hsl(0, 0%, 0%)";
+const DEFAULTLINKCOLOR = "rgba(0, 0, 255, 1)";
+
+export {
+  ASSUMED_BACKGROUND_COLOR,
+  BGCOLOR,
+  TEXTCOLOR,
+  LINKCOLOR,
+  DEFAULTBGCOLOR,
+  DEFAULTTEXTCOLOR,
+  DEFAULTLINKCOLOR,
+};

@@ -1,209 +1,192 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.scss";
-
-import ReactQueryParams from "react-query-params";
 
 import ColorInput from "./components/ColorInput";
 import PreviewParagraph from "./components/PreviewParagraph";
 import Results from "./components/Results";
 import ResultCard from "./components/ResultCard";
 import UnderlineControl from "./components/UnderlineControl";
+import Footer from "./components/Footer";
 import { colorTranslate } from "./utils/color-translate";
 import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
+import { useQueryString } from "./utils/useQueryString";
 
 import { ReactComponent as Logo } from "./contrast-triangle-logo.svg";
 
 import {
   ASSUMED_BACKGROUND_COLOR,
-  BGCOLOR,
-  TEXTCOLOR,
-  LINKCOLOR
+  DEFAULTBGCOLOR,
+  DEFAULTTEXTCOLOR,
+  DEFAULTLINKCOLOR,
 } from "./Constants";
 
-class App extends ReactQueryParams {
-  constructor(props) {
-    super(props);
-    this.state = {
-      textDecoration: "none"
-    };
+const App = () => {
+  const [textDecoration, setTextDecoration] = useState(`none`);
+  const [bgColorQp, setBgColorQp] = useQueryString(`bgColor`);
+  const [textColorQp, setTextColorQp] = useQueryString(`textColor`);
+  const [linkColorQp, setLinkColorQp] = useQueryString(`linkColor`);
 
-    const colorKeys = [BGCOLOR, TEXTCOLOR, LINKCOLOR];
-    const colorDefaults = ["#ffffff", "hsl(0, 0%, 0%)", "rgba(0, 0, 255, 1)"];
+  // We need to set up background color state first
+  const bgColorInitState = colorTranslate(
+    // if the query parameter exists, use that, if not use default
+    bgColorQp ? bgColorQp : DEFAULTBGCOLOR,
+    ASSUMED_BACKGROUND_COLOR,
+    true
+  )
+  const [bgColor, setBgColor] = useState(bgColorInitState);
 
-    colorKeys.forEach((colorKey, i) => {
-      let translatedColor;
-      // if there are query parameters, use those
-      if (this.queryParams[colorKey]) {
-        translatedColor = colorTranslate(
-          colorKey,
-          decodeURIComponent(this.queryParams[colorKey]),
-          this.state[BGCOLOR] && this.state[BGCOLOR].rgb
-            ? this.state[BGCOLOR].rgb
-            : ASSUMED_BACKGROUND_COLOR
-        );
+  // we use this a lot
+  const bgRgb = bgColor.rgb;
 
-        this.state[colorKey] = translatedColor;
-      } else {
-        // use defaults
-        translatedColor = colorTranslate(
-          colorKey,
-          colorDefaults[i],
-          ASSUMED_BACKGROUND_COLOR
-        );
+  // Then use background color state when initing the other colors
+  const textColorInitState = colorTranslate(
+    // if the query parameter exists, use that, if not use default
+    textColorQp ? textColorQp : DEFAULTTEXTCOLOR,
+    bgRgb
+  )
+  const [textColor, setTextColor] = useState(textColorInitState);
+
+  const linkColorInitState = colorTranslate(
+    // if the query parameter exists, use that, if not use default
+    linkColorQp ? linkColorQp : DEFAULTLINKCOLOR,
+    bgRgb
+  )
+  const [linkColor, setLinkColor] = useState(linkColorInitState);
+
+  const handleTextColorChange = (color) => {
+    if (color !== textColor.userValue) {
+      setTextColor(colorTranslate(color, bgRgb));
+      setTextColorQp(color);
+    }
+  }
+
+  const handleLinkColorChange = (color) => {
+    if (color !== linkColor.userValue) {
+      setLinkColor(colorTranslate(color, bgRgb));
+      setLinkColorQp(color);
+    }
+  }
+
+  const handleBgColorChange = (color) => {
+    if (color !== bgColor.userValue) {
+      // first set the background color
+      setBgColor(colorTranslate(color, bgRgb, true));
+      setBgColorQp(color);
+
+      // then re-translate the text and link colors
+      // if they have alpha values
+      if (textColor.alpha) {
+        setTextColor(colorTranslate(textColor.userValue, bgRgb));
       }
 
-      this.state[colorKey] = translatedColor;
-    });
+      if (linkColor.alpha) {
+        setLinkColor(colorTranslate(linkColor.userValue, bgRgb));
+      }
+    }
   }
 
-  handleColorChange = (keyName, color) => {
-    this.setQueryParams({
-      [keyName]: color.replace(/%/g, "%25").replace("#", "%23")
-    });
-
-    const translatedColor = colorTranslate(
-      keyName,
-      color,
-      this.state[BGCOLOR].rgb
-    );
-
-    this.setState({
-      [keyName]: translatedColor
-    });
-
-    if (keyName === BGCOLOR) {
-      [TEXTCOLOR, LINKCOLOR].forEach(colorKey => {
-        const colorState = this.state[colorKey];
-        if (colorState.alpha) {
-          const retranslatedColor = colorTranslate(
-            colorState,
-            colorState.userValue,
-            this.state[BGCOLOR].rgb
-          );
-
-          this.setState({
-            [colorKey]: retranslatedColor
-          });
-        }
-      });
-    }
+  const handleUnderlineChange = checked => {
+    const underlineState = checked ? `underline` : `none`;
+    setTextDecoration(underlineState);
   };
 
-  handleUnderlineChange = value => {
-    const underlineState = value ? "underline" : "none";
-    this.setState({ textDecoration: underlineState });
-  };
-
-  render() {
-    return (
-      <div
-        className="app"
-        style={{
-          backgroundColor: checkYourSelfBeforeYouHexYourself(
-            this.state[BGCOLOR].userValue
-          )
-        }}
-      >
-        <div className="app__inner">
-          <header>
-            <h1 className="logo">
-              <Logo />
-            </h1>
-          </header>
-          <PreviewParagraph
+  return (
+    <div
+    className="app"
+      style={{
+        backgroundColor: checkYourSelfBeforeYouHexYourself(
+          bgColor.userValue
+        )
+      }}
+    >
+      <div className="app__inner">
+        <header>
+          <h1 className="logo">
+            <Logo />
+          </h1>
+        </header>
+        <PreviewParagraph
             textColor={checkYourSelfBeforeYouHexYourself(
-              this.state[TEXTCOLOR].userValue
+              textColor.userValue
             )}
             linkColor={checkYourSelfBeforeYouHexYourself(
-              this.state[LINKCOLOR].userValue
+              linkColor.userValue
             )}
-            textDecoration={this.state.textDecoration}
+            textDecoration={textDecoration}
           />
-
-          <div className="controls">
-            <ColorInput
-              defaultValue={this.state[TEXTCOLOR].userValue}
+        <div className="controls">
+          <ColorInput
+              defaultValue={textColor.userValue}
               label="Text"
-              keyName={TEXTCOLOR}
-              onChange={this.handleColorChange}
-              hex={this.state[TEXTCOLOR].hex}
+              onChange={handleTextColorChange}
+              hex={textColor.hex}
               className="color-input--text"
             />
-            <ColorInput
-              defaultValue={this.state[LINKCOLOR].userValue}
+          <ColorInput
+              defaultValue={linkColor.userValue}
               label="Link"
-              keyName={LINKCOLOR}
-              onChange={this.handleColorChange}
-              hex={this.state[LINKCOLOR].hex}
+              onChange={handleLinkColorChange}
+              hex={linkColor.hex}
               className="color-input--link"
             />
-            <ColorInput
-              defaultValue={this.state[BGCOLOR].userValue}
+          <ColorInput
+              defaultValue={bgColor.userValue}
               label="Background"
-              keyName={BGCOLOR}
-              onChange={this.handleColorChange}
-              hex={this.state[BGCOLOR].hex}
+              onChange={handleBgColorChange}
+              hex={bgColor.hex}
               className="color-input--bg"
             />
-            <UnderlineControl
-              textDecoration={this.state.textDecoration}
-              onChange={this.handleUnderlineChange}
-            />
-            <ResultCard
-              label1="Link"
-              label2="Text"
-              color1={this.state[LINKCOLOR].rgb}
-              color2={this.state[TEXTCOLOR].rgb}
-              min={3}
-              textDecoration={this.state.textDecoration}
-              className="result-card--link-text"
-            />
-            <ResultCard
-              label1="Background"
-              label2="Text"
-              color1={this.state[TEXTCOLOR].rgb}
-              color2={this.state[BGCOLOR].rgb}
-              min={4.5}
-              warn={3}
-              className="result-card--bg-text"
-            />
-
-            <ResultCard
-              label1="Background"
-              label2="Link"
-              color1={this.state[LINKCOLOR].rgb}
-              color2={this.state[BGCOLOR].rgb}
-              min={4.5}
-              warn={3}
-              className="result-card--bg-link"
-            />
-          </div>
-
-          <Results
-            textColor={this.state[TEXTCOLOR].rgb}
-            linkColor={this.state[LINKCOLOR].rgb}
-            bgColor={this.state[BGCOLOR].rgb}
-            textDecoration={this.state.textDecoration}
+          <UnderlineControl
+            onChange={handleUnderlineChange}
+          />
+          <ResultCard
+            label1="Link"
+            label2="Text"
+            color1={linkColor.rgb}
+            color2={textColor.rgb}
+            min={3}
+            textDecoration={textDecoration}
+            className="result-card--link-text"
+          />
+          <ResultCard
+            label1="Background"
+            label2="Text"
+            color1={textColor.rgb}
+            color2={bgColor.rgb}
+            min={4.5}
+            warn={3}
+            className="result-card--bg-text"
+          />
+          <ResultCard
+            label1="Background"
+            label2="Link"
+            color1={linkColor.rgb}
+            color2={bgColor.rgb}
+            min={4.5}
+            warn={3}
+            className="result-card--bg-link"
           />
         </div>
-        <footer>
-          &copy; {new Date().getFullYear()}{" "}
-          <a href="https://chipcullen.com">chip cullen</a> |{" "}
-          <a href="https://chipcullen.com/the-contrast-triangle/">
-            explanatory blog post
-          </a>{" "}
-          |{" "}
-          <a href="https://github.com/chipcullen/contrast-triangle">
-            this project on github
-          </a>{" "}
-          |{" "}
-          <a href="https://twitter.com/chipcullen">
-            i'm occasionally on twitter
-          </a>
-        </footer>
+
+        <Results
+          textColor={textColor.rgb}
+          linkColor={linkColor.rgb}
+          bgColor={bgColor.rgb}
+          textDecoration={textDecoration}
+        />
       </div>
-    );
-  }
+
+      <Footer
+        textColor={checkYourSelfBeforeYouHexYourself(
+          textColor.userValue
+        )}
+        linkColor={checkYourSelfBeforeYouHexYourself(
+          linkColor.userValue
+        )}
+        textDecoration={textDecoration}
+      />
+    </div>
+  )
 }
 
 export default App;

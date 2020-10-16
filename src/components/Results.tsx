@@ -3,9 +3,9 @@ import { calculateContrast } from "../utils/calculate-contrast";
 import ResultEmoji from "./ResultEmoji";
 
 type ResultsProps = {
-  bgColor: string;
-  textColor: string;
-  linkColor: string;
+  bgColor: Array<number>;
+  textColor: Array<number>;
+  linkColor: Array<number>;
   textDecoration: string;
 };
 

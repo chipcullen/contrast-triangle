@@ -15,9 +15,6 @@ import { ReactComponent as Logo } from "./contrast-triangle-logo.svg";
 
 import {
   ASSUMED_BACKGROUND_COLOR,
-  BGCOLOR,
-  TEXTCOLOR,
-  LINKCOLOR,
   DEFAULTBGCOLOR,
   DEFAULTTEXTCOLOR,
   DEFAULTLINKCOLOR,
@@ -31,40 +28,41 @@ const App = () => {
 
   // We need to set up background color state first
   const bgColorInitState = colorTranslate(
-    BGCOLOR,
     // if the query parameter exists, use that, if not use default
     bgColorQp ? bgColorQp : DEFAULTBGCOLOR,
-    ASSUMED_BACKGROUND_COLOR
+    ASSUMED_BACKGROUND_COLOR,
+    true
   )
   const [bgColor, setBgColor] = useState(bgColorInitState);
 
+  // we use this a lot
+  const bgRgb = bgColor.rgb;
+
   // Then use background color state when initing the other colors
   const textColorInitState = colorTranslate(
-    TEXTCOLOR,
     // if the query parameter exists, use that, if not use default
     textColorQp ? textColorQp : DEFAULTTEXTCOLOR,
-    bgColor.rgb
+    bgRgb
   )
   const [textColor, setTextColor] = useState(textColorInitState);
 
   const linkColorInitState = colorTranslate(
-    LINKCOLOR,
     // if the query parameter exists, use that, if not use default
     linkColorQp ? linkColorQp : DEFAULTLINKCOLOR,
-    bgColor.rgb
+    bgRgb
   )
   const [linkColor, setLinkColor] = useState(linkColorInitState);
 
   const handleTextColorChange = (color) => {
     if (color !== textColor.userValue) {
-      setTextColor(colorTranslate(TEXTCOLOR, color, bgColor.rgb));
+      setTextColor(colorTranslate(color, bgRgb));
       setTextColorQp(color);
     }
   }
 
   const handleLinkColorChange = (color) => {
     if (color !== linkColor.userValue) {
-      setLinkColor(colorTranslate(LINKCOLOR, color, bgColor.rgb));
+      setLinkColor(colorTranslate(color, bgRgb));
       setLinkColorQp(color);
     }
   }
@@ -72,27 +70,17 @@ const App = () => {
   const handleBgColorChange = (color) => {
     if (color !== bgColor.userValue) {
       // first set the background color
-      setBgColor(colorTranslate(BGCOLOR, color, bgColor.rgb));
+      setBgColor(colorTranslate(color, bgRgb, true));
       setBgColorQp(color);
 
       // then re-translate the text and link colors
       // if they have alpha values
       if (textColor.alpha) {
-        const retranslatedColor = colorTranslate(
-          TEXTCOLOR,
-          textColor.userValue,
-          bgColor.rgb
-        );
-        setTextColor(retranslatedColor);
+        setTextColor(colorTranslate(textColor.userValue, bgRgb));
       }
 
       if (linkColor.alpha) {
-        const retranslatedColor = colorTranslate(
-          LINKCOLOR,
-          linkColor.userValue,
-          bgColor.rgb
-        );
-        setLinkColor(retranslatedColor);
+        setLinkColor(colorTranslate(linkColor.userValue, bgRgb));
       }
     }
   }

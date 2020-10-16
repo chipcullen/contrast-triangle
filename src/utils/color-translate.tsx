@@ -3,7 +3,7 @@ import { toRgba } from "./to-rgba";
 import { rgbArrayToHex, toHex } from "./to-hex";
 import { typeOfColor } from "./type-of-color";
 import { calculateOverlay } from "./calculate-overlay";
-import { ASSUMED_BACKGROUND_COLOR, BGCOLOR } from "../Constants";
+import { ASSUMED_BACKGROUND_COLOR } from "../Constants";
 
 type Result = {
   userValue: string;
@@ -13,7 +13,7 @@ type Result = {
   hex: string | undefined;
 }
 
-const colorTranslate = (keyName: string, color: string, bgColorRgb: Array<number>): object | undefined => {
+const colorTranslate = (color: string, bgColorRgb: Array<number>, isBackground: boolean = false ): object | undefined => {
   const colorType = typeOfColor(color);
 
   // if no real color value, return undefined
@@ -32,7 +32,7 @@ const colorTranslate = (keyName: string, color: string, bgColorRgb: Array<number
 
   const colorAsRgba = toRgba(color);
   // baked in assumption of white behind the background
-  const bgRgb = keyName === BGCOLOR ? ASSUMED_BACKGROUND_COLOR : bgColorRgb;
+  const bgRgb = isBackground ? ASSUMED_BACKGROUND_COLOR : bgColorRgb;
 
   // if we have a transparent color
   if (isAlpha && colorAsRgba) {

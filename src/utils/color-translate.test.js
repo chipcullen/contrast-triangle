@@ -1,5 +1,4 @@
 import { colorTranslate } from "./color-translate";
-import { BGCOLOR, TEXTCOLOR } from "../Constants";
 
 describe("Color Translate", () => {
   it("returns undefined for bad values", () => {
@@ -7,7 +6,7 @@ describe("Color Translate", () => {
   });
 
   it("returns result from hsl", () => {
-    expect(colorTranslate(BGCOLOR, "hsl(30, 100%, 50%)", [0, 0, 0])).toEqual({
+    expect(colorTranslate("hsl(30, 100%, 50%)", [0, 0, 0], true)).toEqual({
       alpha: false,
       hex: "#ff8000",
       rgb: [255, 128, 0],
@@ -18,7 +17,7 @@ describe("Color Translate", () => {
 
   it("returns result for HSLA background", () => {
     expect(
-      colorTranslate(BGCOLOR, "hsla(30, 100%, 50%, .8)", [0, 0, 0])
+      colorTranslate("hsla(30, 100%, 50%, .8)", [0, 0, 0], true)
     ).toEqual({
       alpha: true,
       hex: "#ff9932",
@@ -30,7 +29,7 @@ describe("Color Translate", () => {
 
   it("returns result for HSLA text color", () => {
     expect(
-      colorTranslate(TEXTCOLOR, "hsla(30, 100%, 50%, .8)", [0, 0, 0])
+      colorTranslate("hsla(30, 100%, 50%, .8)", [0, 0, 0])
     ).toEqual({
       alpha: true,
       hex: "#cc6600",
@@ -41,7 +40,7 @@ describe("Color Translate", () => {
   });
 
   it("returns result for hex text color", () => {
-    expect(colorTranslate(TEXTCOLOR, "#badbad", [0, 0, 0])).toEqual({
+    expect(colorTranslate("#badbad", [0, 0, 0])).toEqual({
       alpha: false,
       hex: "#badbad",
       rgb: [186, 219, 173],

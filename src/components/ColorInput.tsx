@@ -5,21 +5,20 @@ type ColorInputProps = {
   defaultValue: string;
   hex: string;
   label: string;
-  keyName: string;
   className: string;
   onChange: Function;
 };
 
 const ColorInput: React.FC<ColorInputProps> = props => {
-  const { defaultValue, hex, label, keyName, className, onChange } = props;
+  const { defaultValue, hex, label, className, onChange } = props;
 
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
     if (typeOfColor(value) !== undefined) {
-      onChange(keyName, value);
+      onChange(value);
     }
-  }, [keyName, onChange, value]);
+  }, [onChange, value]);
 
   return (
     <div className={`color-input ${className}`}>

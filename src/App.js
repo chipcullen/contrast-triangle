@@ -55,27 +55,24 @@ const App = () => {
   )
   const [linkColor, setLinkColor] = useState(linkColorInitState);
 
-  const handleColorChange = (keyName, color) => {
-
-    const translatedColor = colorTranslate(
-      keyName,
-      color,
-      bgColor.rgb
-    );
-
-    if (keyName === TEXTCOLOR && color !== textColor.userValue) {
-      setTextColor(translatedColor);
+  const handleTextColorChange = (color) => {
+    if (color !== textColor.userValue) {
+      setTextColor(colorTranslate(TEXTCOLOR, color, bgColor.rgb));
       setTextColorQp(color);
     }
+  }
 
-    if (keyName === LINKCOLOR && color !== linkColor.userValue) {
-      setLinkColor(translatedColor);
+  const handleLinkColorChange = (color) => {
+    if (color !== linkColor.userValue) {
+      setLinkColor(colorTranslate(LINKCOLOR, color, bgColor.rgb));
       setLinkColorQp(color);
     }
+  }
 
-    if (keyName === BGCOLOR && color !== bgColor.userValue) {
+  const handleBgColorChange = (color) => {
+    if (color !== bgColor.userValue) {
       // first set the background color
-      setBgColor(translatedColor);
+      setBgColor(colorTranslate(BGCOLOR, color, bgColor.rgb));
       setBgColorQp(color);
 
       // then re-translate the text and link colors
@@ -98,7 +95,7 @@ const App = () => {
         setLinkColor(retranslatedColor);
       }
     }
-  };
+  }
 
   const handleUnderlineChange = checked => {
     const underlineState = checked ? `underline` : `none`;
@@ -133,24 +130,21 @@ const App = () => {
           <ColorInput
               defaultValue={textColor.userValue}
               label="Text"
-              keyName={TEXTCOLOR}
-              onChange={handleColorChange}
+              onChange={handleTextColorChange}
               hex={textColor.hex}
               className="color-input--text"
             />
           <ColorInput
               defaultValue={linkColor.userValue}
               label="Link"
-              keyName={LINKCOLOR}
-              onChange={handleColorChange}
+              onChange={handleLinkColorChange}
               hex={linkColor.hex}
               className="color-input--link"
             />
           <ColorInput
               defaultValue={bgColor.userValue}
               label="Background"
-              keyName={BGCOLOR}
-              onChange={handleColorChange}
+              onChange={handleBgColorChange}
               hex={bgColor.hex}
               className="color-input--bg"
             />

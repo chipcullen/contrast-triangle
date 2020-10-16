@@ -1,6 +1,6 @@
 import { getLuminance } from "./get-luminance";
 
-const calculateContrast = (color1, color2) => {
+const calculateContrast = (color1:Array<number>, color2:Array<number>): number => {
   const l1 = getLuminance(color1[0], color1[1], color1[2]);
   const l2 = getLuminance(color2[0], color2[1], color2[2]);
 

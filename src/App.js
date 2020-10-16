@@ -6,6 +6,7 @@ import PreviewParagraph from "./components/PreviewParagraph";
 import Results from "./components/Results";
 import ResultCard from "./components/ResultCard";
 import UnderlineControl from "./components/UnderlineControl";
+import Footer from "./components/Footer";
 import { colorTranslate } from "./utils/color-translate";
 import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
 import { useQueryString } from "./utils/useQueryString";
@@ -16,12 +17,13 @@ import {
   ASSUMED_BACKGROUND_COLOR,
   BGCOLOR,
   TEXTCOLOR,
-  LINKCOLOR
+  LINKCOLOR,
+  DEFAULTBGCOLOR,
+  DEFAULTTEXTCOLOR,
+  DEFAULTLINKCOLOR,
 } from "./Constants";
 
 const App = () => {
-  const colorDefaults = ["#ffffff", "hsl(0, 0%, 0%)", "rgba(0, 0, 255, 1)"];
-
   const [textDecoration, setTextDecoration] = useState(`none`);
   const [bgColorQp, setBgColorQp] = useQueryString(`bgColor`);
   const [textColorQp, setTextColorQp] = useQueryString(`textColor`);
@@ -31,7 +33,7 @@ const App = () => {
   const bgColorInitState = colorTranslate(
     BGCOLOR,
     // if the query parameter exists, use that, if not use default
-    bgColorQp ? bgColorQp : colorDefaults[0],
+    bgColorQp ? bgColorQp : DEFAULTBGCOLOR,
     ASSUMED_BACKGROUND_COLOR
   )
   const [bgColor, setBgColor] = useState(bgColorInitState);
@@ -40,7 +42,7 @@ const App = () => {
   const textColorInitState = colorTranslate(
     TEXTCOLOR,
     // if the query parameter exists, use that, if not use default
-    textColorQp ? textColorQp : colorDefaults[1],
+    textColorQp ? textColorQp : DEFAULTTEXTCOLOR,
     bgColor.rgb
   )
   const [textColor, setTextColor] = useState(textColorInitState);
@@ -48,7 +50,7 @@ const App = () => {
   const linkColorInitState = colorTranslate(
     LINKCOLOR,
     // if the query parameter exists, use that, if not use default
-    linkColorQp ? linkColorQp : colorDefaults[2],
+    linkColorQp ? linkColorQp : DEFAULTLINKCOLOR,
     bgColor.rgb
   )
   const [linkColor, setLinkColor] = useState(linkColorInitState);
@@ -96,7 +98,6 @@ const App = () => {
         setLinkColor(retranslatedColor);
       }
     }
-
   };
 
   const handleUnderlineChange = checked => {
@@ -193,21 +194,15 @@ const App = () => {
         />
       </div>
 
-      <footer>
-        &copy; {new Date().getFullYear()}{" "}
-        <a href="https://chipcullen.com">chip cullen</a> |{" "}
-        <a href="https://chipcullen.com/the-contrast-triangle/">
-          explanatory blog post
-        </a>{" "}
-        |{" "}
-        <a href="https://github.com/chipcullen/contrast-triangle">
-          this project on github
-        </a>{" "}
-        |{" "}
-        <a href="https://twitter.com/chipcullen">
-          i'm occasionally on twitter
-        </a>
-      </footer>
+      <Footer
+        textColor={checkYourSelfBeforeYouHexYourself(
+          textColor.userValue
+        )}
+        linkColor={checkYourSelfBeforeYouHexYourself(
+          linkColor.userValue
+        )}
+        textDecoration={textDecoration}
+      />
     </div>
   )
 }

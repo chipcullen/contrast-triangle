@@ -8,6 +8,22 @@ https://contrast-triangle.com
 
 _______________
 
+## Prior art
+
+Most of the color translation logic is from this CSS tricks article by [Jon Kanter](https://jonkantner.com/):
+
+https://css-tricks.com/converting-color-spaces-in-javascript/
+
+Query Parameter support is from this Medium article by [Fernando Abolafio](https://github.com/fernandoabolafio)
+
+https://medium.com/swlh/using-react-hooks-to-sync-your-component-state-with-the-url-query-string-81ccdfcb174f
+
+Luminance calculation function is from this gist by [John Schulz](https://gist.github.com/jfsiii):
+
+https://gist.github.com/jfsiii/5641126
+
+
+_______________
 
 This project was made with [Create React App](https://github.com/facebook/create-react-app).
 

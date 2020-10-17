@@ -8,6 +8,7 @@ type PreviewParagraphProps = {
 
 const PreviewParagraph: React.FC<PreviewParagraphProps> = props => {
   const { textColor, linkColor, textDecoration } = props;
+
   return (
     <p className="preview-paragraph" style={{ color: textColor }}>
       Removing underlines from links in HTML text presents an accessibility

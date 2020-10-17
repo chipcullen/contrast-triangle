@@ -21,10 +21,10 @@ import {
 } from "./Constants";
 
 const App = () => {
-  const [textDecoration, setTextDecoration] = useState(`none`);
   const [bgColorQp, setBgColorQp] = useQueryString(`bgColor`);
   const [textColorQp, setTextColorQp] = useQueryString(`textColor`);
   const [linkColorQp, setLinkColorQp] = useQueryString(`linkColor`);
+  const [underlinesQp, setUnderlinesQp] = useQueryString(`underlines`, false);
 
   // We need to set up background color state first
   const bgColorInitState = colorTranslate(
@@ -52,6 +52,11 @@ const App = () => {
     bgRgb
   )
   const [linkColor, setLinkColor] = useState(linkColorInitState);
+
+  const textDecorationInitState =
+    underlinesQp && underlinesQp === `true` ? `underlines` : `none`;
+
+  const [textDecoration, setTextDecoration] = useState(textDecorationInitState);
 
   const handleTextColorChange = (color) => {
     if (color !== textColor.userValue) {
@@ -88,6 +93,7 @@ const App = () => {
   const handleUnderlineChange = checked => {
     const underlineState = checked ? `underline` : `none`;
     setTextDecoration(underlineState);
+    setUnderlinesQp(checked);
   };
 
   return (
@@ -138,6 +144,7 @@ const App = () => {
             />
           <UnderlineControl
             onChange={handleUnderlineChange}
+            textDecoration={textDecoration}
           />
           <ResultCard
             label1="Link"

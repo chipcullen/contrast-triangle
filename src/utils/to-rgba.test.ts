@@ -77,7 +77,7 @@ describe("rgba to RGBA conversion", () => {
     expect(rgbaToRgba("rgba(0, 0, 0, 1)")[3]).toBe(1);
   });
 
-  it("correct rgb for white", () => {
+  it("correct rgba for white", () => {
     expect(rgbaToRgba("rgba(255, 255, 255, 1)")[0]).toBe(255);
     expect(rgbaToRgba("rgba(255, 255, 255, 1)")[1]).toBe(255);
     expect(rgbaToRgba("rgba(255, 255, 255, 1)")[2]).toBe(255);
@@ -87,22 +87,24 @@ describe("rgba to RGBA conversion", () => {
 
 // integration
 describe("To RGB conversion", () => {
-  it("correct rgb for black", () => {
+  it("correct rgba for black", () => {
     expect(toRgba("hsla(0, 0%, 0%, 1)")).toEqual([0, 0, 0, 1]);
-    // expect(toRgba("rgb(0, 0, 0)")).toEqual([0, 0, 0]);
-    // expect(toRgba("#000")).toEqual([0, 0, 0]);
-    // expect(toRgba("000")).toEqual([0, 0, 0]);
-    // expect(toRgba("#000000")).toEqual([0, 0, 0]);
-    // expect(toRgba("000000")).toEqual([0, 0, 0]);
-    // expect(toRgba("black")).toEqual([0, 0, 0]);
+    expect(toRgba("rgba(0, 0, 0, 1)")).toEqual([0, 0, 0, 1]);
+    expect(toRgba("#000000ff")).toEqual([0, 0, 0, 1]);
+    expect(toRgba("#00000000")).toEqual([0, 0, 0, 0]);
   });
 
-  //   it("correct rgb for white", () => {
-  //     expect(toRgba("hsl(0, 0%, 100%)")).toEqual([255, 255, 255]);
-  //     expect(toRgba("rgb(255, 255, 255)")).toEqual([255, 255, 255]);
-  //     expect(toRgba("#fff")).toEqual([255, 255, 255]);
-  //     expect(toRgba("fff")).toEqual([255, 255, 255]);
-  //     expect(toRgba("#ffffff")).toEqual([255, 255, 255]);
-  //     expect(toRgba("ffffff")).toEqual([255, 255, 255]);
-  //   });
+  it("correct rgba for white", () => {
+      expect(toRgba("hsla(0, 0%, 100%, 1)")).toEqual([255, 255, 255, 1]);
+      expect(toRgba("rgba(255, 255, 255, 1)")).toEqual([255, 255, 255, 1]);
+      expect(toRgba("#ffffffff")).toEqual([255, 255, 255, 1]);
+      expect(toRgba("#ffffff00")).toEqual([255, 255, 255, 0]);
+  });
+
+  it("get undefined for colors without alpha channels", () => {
+      expect(toRgba("hsl(0, 0%, 100%)")).toBeUndefined();
+      expect(toRgba("rgb(255, 255, 255)")).toBeUndefined();
+      expect(toRgba("white")).toBeUndefined();
+      expect(toRgba("foo")).toBeUndefined();
+  });
 });

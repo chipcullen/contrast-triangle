@@ -21,10 +21,10 @@ import {
 } from "./Constants";
 
 const App = () => {
-  const [textDecoration, setTextDecoration] = useState(`none`);
   const [bgColorQp, setBgColorQp] = useQueryString(`bgColor`);
   const [textColorQp, setTextColorQp] = useQueryString(`textColor`);
   const [linkColorQp, setLinkColorQp] = useQueryString(`linkColor`);
+  const [underlineQp, setUnderlineQp] = useQueryString(`underlines`, false);
 
   // We need to set up background color state first
   const bgColorInitState = colorTranslate(
@@ -52,6 +52,9 @@ const App = () => {
     bgRgb
   )
   const [linkColor, setLinkColor] = useState(linkColorInitState);
+
+  const underlineInitState = underlineQp ? underlineQp : false;
+  const [underline, setUnderline] = useState(underlineInitState);
 
   const handleTextColorChange = (color) => {
     if (color !== textColor.userValue) {
@@ -85,9 +88,9 @@ const App = () => {
     }
   }
 
-  const handleUnderlineChange = checked => {
-    const underlineState = checked ? `underline` : `none`;
-    setTextDecoration(underlineState);
+  const handleUnderlineChange = (checked) => {
+    setUnderline(checked);
+    setUnderlineQp(checked);
   };
 
   return (
@@ -112,7 +115,7 @@ const App = () => {
             linkColor={checkYourSelfBeforeYouHexYourself(
               linkColor.userValue
             )}
-            textDecoration={textDecoration}
+            underline={underline}
           />
         <div className="controls">
           <ColorInput
@@ -138,6 +141,7 @@ const App = () => {
             />
           <UnderlineControl
             onChange={handleUnderlineChange}
+            underline={underline}
           />
           <ResultCard
             label1="Link"
@@ -145,7 +149,7 @@ const App = () => {
             color1={linkColor.rgb}
             color2={textColor.rgb}
             min={3}
-            textDecoration={textDecoration}
+            underline={underline}
             className="result-card--link-text"
           />
           <ResultCard
@@ -172,7 +176,7 @@ const App = () => {
           textColor={textColor.rgb}
           linkColor={linkColor.rgb}
           bgColor={bgColor.rgb}
-          textDecoration={textDecoration}
+          underline={underline}
         />
       </div>
 
@@ -183,7 +187,7 @@ const App = () => {
         linkColor={checkYourSelfBeforeYouHexYourself(
           linkColor.userValue
         )}
-        textDecoration={textDecoration}
+        underline={underline}
       />
     </div>
   )

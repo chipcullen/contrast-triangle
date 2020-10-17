@@ -6,22 +6,16 @@ type ResultsProps = {
   bgColor: Array<number>;
   textColor: Array<number>;
   linkColor: Array<number>;
-  textDecoration: string;
+  underline: boolean;
 };
 
 const Results: React.FC<ResultsProps> = props => {
-  const { bgColor, textColor, linkColor, textDecoration } = props;
+  const { bgColor, textColor, linkColor, underline } = props;
   const textBgContrast = calculateContrast(textColor, bgColor);
   const linkBgContrast = calculateContrast(linkColor, bgColor);
   const textLinkContrast = calculateContrast(textColor, linkColor);
 
-  const strikeStyle = () => {
-    if (textDecoration === "underline") {
-      return `line-through`;
-    } else {
-      return `none`;
-    }
-  };
+  const strikeStyle = underline ? `line-through` : `none`;
 
   return (
     <ul className="Results">
@@ -37,7 +31,7 @@ const Results: React.FC<ResultsProps> = props => {
       </li>
       <li
         style={{
-          textDecoration: strikeStyle()
+          textDecoration: strikeStyle
         }}
       >
         <ResultEmoji contrast={textLinkContrast} min={3} /> Text : Link contrast

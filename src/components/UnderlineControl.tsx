@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 type UnderlineControlProps = {
   onChange: Function;
+  underline: boolean;
 };
 
 const UnderlineControl: React.FC<UnderlineControlProps> = props => {
-  const [checked, setChecked] = useState(false);
+  const { onChange, underline } = props;
+  const [checked, setChecked] = useState(underline);
 
-  const { onChange } = props;
-
-  useEffect(() => {
-    onChange(checked);
-  }, [onChange, checked]);
+  const handleClick = (checked: boolean) => {
+    setChecked(!checked);
+    onChange(!checked);
+  }
 
   return (
     <div className="underline-control">
@@ -19,7 +20,7 @@ const UnderlineControl: React.FC<UnderlineControlProps> = props => {
       <button
         role="switch"
         aria-checked={checked}
-        onClick={() => setChecked(!checked)}
+        onClick={() => handleClick(checked)}
         className="underline-control__toggle"
         aria-label={`Toggle underlines ${checked ? `Off` : `On`}`}
       >

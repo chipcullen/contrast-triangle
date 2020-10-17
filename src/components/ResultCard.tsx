@@ -7,7 +7,7 @@ type ResultCardProps = {
   color2: Array<number>;
   min: number;
   warn?: number;
-  textDecoration: string;
+  underline: boolean;
   label1: string;
   label2: string;
   className: string;
@@ -19,7 +19,7 @@ const ResultCard: React.FC<ResultCardProps> = props => {
     color2,
     min,
     warn,
-    textDecoration,
+    underline,
     label1,
     label2,
     className
@@ -27,18 +27,12 @@ const ResultCard: React.FC<ResultCardProps> = props => {
 
   const contrast = calculateContrast(color1, color2);
 
-  const opacityStyle = () => {
-    if (textDecoration === "underline") {
-      return 0.2;
-    } else {
-      return 1;
-    }
-  };
+  const opacityStyle = underline ? 0.2 : 1;
 
   return (
     <div
       className={`result-card-wrapper ${className}`}
-      style={{ opacity: opacityStyle() }}
+      style={{ opacity: opacityStyle }}
     >
       <div className="result-card">
         <h2>

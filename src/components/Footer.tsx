@@ -3,11 +3,14 @@ import React from "react";
 type FooterProps = {
   textColor: string;
   linkColor: string;
-  textDecoration: string;
+  underline: boolean;
 };
 
 const Footer: React.FC<FooterProps> = props => {
-  const { textColor, linkColor, textDecoration } = props;
+  const { textColor, linkColor, underline } = props;
+
+  const textDecoration = underline ? `underline` : `none`;
+
   return (
     <footer style={{ color: textColor }}>
         &copy; {new Date().getFullYear()}{" "}

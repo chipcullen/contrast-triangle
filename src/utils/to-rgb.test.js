@@ -1,4 +1,4 @@
-import { hexToRgb, hslToRgb, rgbToRgb, namedToRgb, toRgb } from "./to-rgb";
+import { hexToRgb, hslToRgb, rgbToRgb, toRgb } from "./to-rgb";
 
 describe("Hex to RGB conversion", () => {
   it("correct rgb for black", () => {

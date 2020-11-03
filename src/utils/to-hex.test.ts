@@ -24,6 +24,10 @@ describe("HSL to Hex conversion", () => {
   it("correct Hex for white", () => {
     expect(hslToHex("hsl(0, 0%, 100%)")).toBe("#ffffff");
   });
+
+    it("correct Hex for orange", () => {
+    expect(hslToHex("hsl(30, 100%, 50%)")).toEqual("#ff8000");
+  })
 });
 
 describe("RGB to Hex conversion", () => {
@@ -38,17 +42,16 @@ describe("RGB to Hex conversion", () => {
 
 // integration
 describe("To Hex conversion", () => {
-  it("correct rgb for black", () => {
+  it("correct hex for black", () => {
     expect(toHex("hsl(0, 0%, 0%)")).toEqual("#000000");
     expect(toHex("rgb(0, 0, 0)")).toEqual("#000000");
     expect(toHex("#000")).toEqual("#000000");
     expect(toHex("000")).toEqual("#000000");
     expect(toHex("#000000")).toEqual("#000000");
     expect(toHex("000000")).toEqual("#000000");
-    // expect(toHex("black")).toEqual('#000000');
   });
 
-  it("correct rgb for white", () => {
+  it("correct hex for white", () => {
     expect(toHex("hsl(0, 0%, 100%)")).toEqual("#ffffff");
     expect(toHex("rgb(255, 255, 255)")).toEqual("#ffffff");
     expect(toHex("#fff")).toEqual("#ffffff");
@@ -56,4 +59,8 @@ describe("To Hex conversion", () => {
     expect(toHex("#ffffff")).toEqual("#ffffff");
     expect(toHex("ffffff")).toEqual("#ffffff");
   });
+
+  it("correct hex for orange", () => {
+    expect(toHex("hsl(30, 100%, 50%)")).toEqual("#ff8000");
+  })
 });

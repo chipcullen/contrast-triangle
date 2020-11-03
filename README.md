@@ -10,6 +10,8 @@ _______________
 
 ## Prior art
 
+Inspired by [Lea Verou's](https://lea.verou.me/) excellent [Contrast Ratio](https://contrast-ratio.com/)
+
 Most of the color translation logic is from this CSS tricks article by [Jon Kanter](https://jonkantner.com/):
 
 https://css-tricks.com/converting-color-spaces-in-javascript/
@@ -22,6 +24,7 @@ Luminance calculation function is from this gist by [John Schulz](https://gist.g
 
 https://gist.github.com/jfsiii/5641126
 
+On / Off Toggle inspired by the [Toggle Button Inclusive Component Pattern](https://inclusive-components.design/toggle-button/) by [Heydon Pickering](https://heydonworks.com/)
 
 _______________
 

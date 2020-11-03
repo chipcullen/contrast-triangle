@@ -31,7 +31,7 @@ const hslToHex = (hsl: string): string => {
     .split(")")[0]
     .split(sep);
 
-  let h = hslArray[0];
+  let h = hslArray[0]; // leaving this a string for now
   let s = parseInt(hslArray[1].substr(0, hslArray[1].length - 1)) / 100 || 0;
   let l = parseInt(hslArray[2].substr(0, hslArray[2].length - 1)) / 100 || 0;
 

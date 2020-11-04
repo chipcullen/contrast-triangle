@@ -3,11 +3,11 @@ import { calculateContrast } from "../utils/calculate-contrast";
 import ResultEmoji from "./ResultEmoji";
 
 type ResultCardProps = {
-  color1: Array<number>;
-  color2: Array<number>;
+  color1?: Array<number>;
+  color2?: Array<number>;
   min: number;
   warn?: number;
-  textDecoration: string;
+  textDecoration?: string;
   label1: string;
   label2: string;
   className: string;

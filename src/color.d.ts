@@ -1,7 +1,7 @@
 type ColorObject = {
   userValue: string;
-  type: string | undefined;
+  type: string;
   alpha: boolean;
   rgb: Array<number>;
-  hex: string | undefined;
+  hex: string;
 }

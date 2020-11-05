@@ -1,11 +1,17 @@
 import { toRgb } from "./to-rgb";
 import { toRgba } from "./to-rgba";
 import { rgbArrayToHex, toHex } from "./to-hex";
-import { typeOfColor, safeTypeOfColor } from "./type-of-color";
+import { typeOfColor } from "./type-of-color";
 import { calculateOverlay } from "./calculate-overlay";
 import { ASSUMED_BACKGROUND_COLOR } from "../Constants";
 
-const colorLogic = (color: string, bgColorRgb: Array<number>, isBackground: boolean = false, colorType: string ): ColorObject => {
+const colorTranslate = (
+  color: string,
+  bgColorRgb: Array<number>,
+  isBackground: boolean = false ): ColorObject => {
+
+  const colorType = typeOfColor(color);
+
   const result = {} as ColorObject;
 
   result.userValue = color;
@@ -32,21 +38,4 @@ const colorLogic = (color: string, bgColorRgb: Array<number>, isBackground: bool
   return result;
 };
 
-const colorTranslate = (color: string, bgColorRgb: Array<number>, isBackground: boolean = false ): ColorObject=> {
-  const colorType = safeTypeOfColor(color);
-
-  // if no real color value, return undefined
-  // if (!colorType) {
-  //   return undefined;
-  // }
-
-  return colorLogic(color, bgColorRgb, isBackground, colorType);
-};
-
-const initColorTranslate = (color: string, bgColorRgb: Array<number>, isBackground: boolean = false ): ColorObject => {
-  const colorType = safeTypeOfColor(color);
-
-  return colorLogic(color, bgColorRgb, isBackground, colorType);
-};
-
-export { colorTranslate, initColorTranslate };
+export { colorTranslate };

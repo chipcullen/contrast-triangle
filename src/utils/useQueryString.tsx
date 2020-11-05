@@ -12,6 +12,6 @@ export const useQueryString = (key:string, initialValue?: string | boolean) => {
     [key],
   );
 
-  return [value, onSetValue]
+  return [value, onSetValue] as const;
 }
 

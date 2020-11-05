@@ -7,7 +7,7 @@ import Results from "./components/Results";
 import ResultCard from "./components/ResultCard";
 import UnderlineControl from "./components/UnderlineControl";
 import Footer from "./components/Footer";
-import { colorTranslate, initColorTranslate } from "./utils/color-translate";
+import { colorTranslate } from "./utils/color-translate";
 import { isValidColor } from "./utils/type-of-color";
 import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
 import { useQueryString } from "./utils/useQueryString";
@@ -28,7 +28,7 @@ const App: React.FC = () => {
   const [underlinesQp, setUnderlinesQp] = useQueryString(`underlines`, false);
 
   // We need to set up background color state first
-  const bgColorInitState: ColorObject = initColorTranslate(
+  const bgColorInitState: ColorObject = colorTranslate(
     // if the query parameter exists, use that, if not use default
     bgColorQp ? bgColorQp.toString() : DEFAULTBGCOLOR,
     ASSUMED_BACKGROUND_COLOR,
@@ -41,7 +41,7 @@ const App: React.FC = () => {
   const bgRgb = bgColor.rgb;
 
   // Then use background color state when initing the other colors
-  const textColorInitState: ColorObject = initColorTranslate(
+  const textColorInitState: ColorObject = colorTranslate(
     // if the query parameter exists, use that, if not use default
     textColorQp ? textColorQp.toString() : DEFAULTTEXTCOLOR,
     bgRgb,
@@ -49,7 +49,7 @@ const App: React.FC = () => {
   )
   const [textColor, setTextColor] = useState<ColorObject>(textColorInitState);
 
-  const linkColorInitState: ColorObject = initColorTranslate(
+  const linkColorInitState: ColorObject = colorTranslate(
     // if the query parameter exists, use that, if not use default
     linkColorQp ? linkColorQp.toString() : DEFAULTLINKCOLOR,
     bgRgb
@@ -63,20 +63,20 @@ const App: React.FC = () => {
 
   const handleTextColorChange = (color: string) => {
     if (color !== textColor.userValue && isValidColor(color)) {
-      setTextColor(initColorTranslate(color, bgRgb));
+      setTextColor(colorTranslate(color, bgRgb));
       setTextColorQp(color);
     }
   }
 
   const handleLinkColorChange = (color: string) => {
-    if (color !== linkColor.userValue) {
+    if (color !== linkColor.userValue && isValidColor(color)) {
       setLinkColor(colorTranslate(color, bgRgb));
       setLinkColorQp(color);
     }
   }
 
   const handleBgColorChange = (color: string) => {
-    if (color !== bgColor.userValue) {
+    if (color !== bgColor.userValue && isValidColor(color)) {
       // first set the background color
       setBgColor(colorTranslate(color, bgRgb, true));
       setBgColorQp(color);

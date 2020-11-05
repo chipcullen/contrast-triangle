@@ -130,7 +130,7 @@ const namedToRgb = (name: string) => {
   return rgbToRgb(pv);
 };
 
-const toRgb = (color: string): Array<number> | undefined => {
+const toRgb = (color: string): Array<number> => {
   switch (true) {
     case typeOfColor(color) === "hex3":
     case typeOfColor(color) === "hex6":
@@ -146,7 +146,8 @@ const toRgb = (color: string): Array<number> | undefined => {
       return namedToRgb(color);
 
     default:
-      return undefined;
+      // assume rgb to rgb
+      return rgbToRgb(color);
   }
 };
 

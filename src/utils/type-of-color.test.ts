@@ -1,12 +1,12 @@
-import { typeOfColor } from "./type-of-color";
+import { typeOfColor, isValidColor } from "./type-of-color";
 
 describe("Type Of Color", () => {
-  it("returns undefined for a bad value", () => {
-    expect(typeOfColor("foo")).toBe(undefined);
-    expect(typeOfColor("#foo")).toBe(undefined);
-    expect(typeOfColor("#fooo")).toBe(undefined);
-    expect(typeOfColor("foobar")).toBe(undefined);
-    expect(typeOfColor("#foobar")).toBe(undefined);
+  it("returns none for a bad value", () => {
+    expect(typeOfColor("foo")).toBe("none");
+    expect(typeOfColor("#foo")).toBe("none");
+    expect(typeOfColor("#fooo")).toBe("none");
+    expect(typeOfColor("foobar")).toBe("none");
+    expect(typeOfColor("#foobar")).toBe("none");
   });
 
   it("returns named for a named color", () => {
@@ -50,4 +50,23 @@ describe("Type Of Color", () => {
   it("returns hsl", () => {
     expect(typeOfColor("hsl(0, 0%, 100)")).toBe("hsl");
   });
+});
+
+describe("Is Valid Color", () => {
+  it("returns false for a bad value", () => {
+    expect(isValidColor("foo")).toBe(false);
+    expect(isValidColor("#foo")).toBe(false);
+    expect(isValidColor("#fooo")).toBe(false);
+    expect(isValidColor("#foobar")).toBe(false);
+  });
+
+    it("returns true for a good value", () => {
+    expect(isValidColor("fff")).toBe(true);
+    expect(isValidColor("#fff")).toBe(true);
+    expect(isValidColor("#ffff")).toBe(true);
+    expect(isValidColor("rgb(255, 255, 255)")).toBe(true);
+    expect(isValidColor("hsla(0, 0%, 100, 1)")).toBe(true);
+  });
+
+
 });

@@ -1,9 +1,6 @@
 import { colorTranslate } from "./color-translate";
 
 describe("Color Translate", () => {
-  it("returns undefined for bad values", () => {
-    expect(colorTranslate("foo", "bar", "zam")).toBe(undefined);
-  });
 
   it("returns result from hsl", () => {
     expect(colorTranslate("hsl(30, 100%, 50%)", [0, 0, 0], true)).toEqual({

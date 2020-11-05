@@ -162,7 +162,8 @@ const toHex = (color:string) => {
       return namedToHex(color);
 
     default:
-      return undefined;
+      // if nothing else, assume hex
+      return hexToHex(color);
   }
 };
 

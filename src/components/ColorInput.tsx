@@ -3,7 +3,7 @@ import { typeOfColor } from "../utils/type-of-color";
 
 type ColorInputProps = {
   defaultValue: string;
-  hex: string;
+  hex?: string;
   label: string;
   className: string;
   onChange: Function;

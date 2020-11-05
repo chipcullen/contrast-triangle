@@ -8,6 +8,7 @@ import ResultCard from "./components/ResultCard";
 import UnderlineControl from "./components/UnderlineControl";
 import Footer from "./components/Footer";
 import { colorTranslate } from "./utils/color-translate";
+import { isValidColor } from "./utils/type-of-color";
 import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
 import { useQueryString } from "./utils/useQueryString";
 
@@ -20,60 +21,62 @@ import {
   DEFAULTLINKCOLOR,
 } from "./Constants";
 
-const App = () => {
+const App: React.FC = () => {
   const [bgColorQp, setBgColorQp] = useQueryString(`bgColor`);
   const [textColorQp, setTextColorQp] = useQueryString(`textColor`);
   const [linkColorQp, setLinkColorQp] = useQueryString(`linkColor`);
   const [underlinesQp, setUnderlinesQp] = useQueryString(`underlines`, false);
 
   // We need to set up background color state first
-  const bgColorInitState = colorTranslate(
+  const bgColorInitState: ColorObject = colorTranslate(
     // if the query parameter exists, use that, if not use default
-    bgColorQp ? bgColorQp : DEFAULTBGCOLOR,
+    bgColorQp ? bgColorQp.toString() : DEFAULTBGCOLOR,
     ASSUMED_BACKGROUND_COLOR,
     true
   )
-  const [bgColor, setBgColor] = useState(bgColorInitState);
+
+  const [bgColor, setBgColor] = useState<ColorObject>(bgColorInitState);
 
   // we use this a lot
   const bgRgb = bgColor.rgb;
 
   // Then use background color state when initing the other colors
-  const textColorInitState = colorTranslate(
+  const textColorInitState: ColorObject = colorTranslate(
     // if the query parameter exists, use that, if not use default
-    textColorQp ? textColorQp : DEFAULTTEXTCOLOR,
-    bgRgb
+    textColorQp ? textColorQp.toString() : DEFAULTTEXTCOLOR,
+    bgRgb,
+    false
   )
-  const [textColor, setTextColor] = useState(textColorInitState);
+  const [textColor, setTextColor] = useState<ColorObject>(textColorInitState);
 
-  const linkColorInitState = colorTranslate(
+  const linkColorInitState: ColorObject = colorTranslate(
     // if the query parameter exists, use that, if not use default
-    linkColorQp ? linkColorQp : DEFAULTLINKCOLOR,
+    linkColorQp ? linkColorQp.toString() : DEFAULTLINKCOLOR,
     bgRgb
   )
-  const [linkColor, setLinkColor] = useState(linkColorInitState);
+  const [linkColor, setLinkColor] = useState<ColorObject>(linkColorInitState);
 
   const textDecorationInitState =
     underlinesQp && underlinesQp === `true` ? `underlines` : `none`;
 
   const [textDecoration, setTextDecoration] = useState(textDecorationInitState);
 
-  const handleTextColorChange = (color) => {
-    if (color !== textColor.userValue) {
+  const handleTextColorChange = (color: string) => {
+    if (color !== textColor.userValue && isValidColor(color)) {
       setTextColor(colorTranslate(color, bgRgb));
       setTextColorQp(color);
     }
   }
 
-  const handleLinkColorChange = (color) => {
-    if (color !== linkColor.userValue) {
+  const handleLinkColorChange = (color: string) => {
+    if (color !== linkColor.userValue && isValidColor(color)) {
       setLinkColor(colorTranslate(color, bgRgb));
       setLinkColorQp(color);
     }
   }
 
-  const handleBgColorChange = (color) => {
-    if (color !== bgColor.userValue) {
+  const handleBgColorChange = (color: string) => {
+    if (color !== bgColor.userValue && isValidColor(color)) {
       // first set the background color
       setBgColor(colorTranslate(color, bgRgb, true));
       setBgColorQp(color);
@@ -90,7 +93,7 @@ const App = () => {
     }
   }
 
-  const handleUnderlineChange = checked => {
+  const handleUnderlineChange = (checked: boolean) => {
     const underlineState = checked ? `underline` : `none`;
     setTextDecoration(underlineState);
     setUnderlinesQp(checked);

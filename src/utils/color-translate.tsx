@@ -5,23 +5,14 @@ import { typeOfColor } from "./type-of-color";
 import { calculateOverlay } from "./calculate-overlay";
 import { ASSUMED_BACKGROUND_COLOR } from "../Constants";
 
-type Result = {
-  userValue: string;
-  type: string | undefined;
-  alpha: boolean;
-  rgb: Array<number> | undefined;
-  hex: string | undefined;
-}
+const colorTranslate = (
+  color: string,
+  bgColorRgb: Array<number>,
+  isBackground: boolean = false ): ColorObject => {
 
-const colorTranslate = (color: string, bgColorRgb: Array<number>, isBackground: boolean = false ): object | undefined => {
   const colorType = typeOfColor(color);
 
-  // if no real color value, return undefined
-  if (!colorType) {
-    return undefined;
-  }
-
-  const result = {} as Result;
+  const result = {} as ColorObject;
 
   result.userValue = color;
   result.type = colorType;

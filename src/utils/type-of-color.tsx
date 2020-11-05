@@ -4,7 +4,7 @@ import { namedColors } from "./named-colors";
 // for comparison
 const lowerCaseNamedColors = namedColors.map(c => c.toLowerCase());
 
-const typeOfColor = (color: string): string | undefined => {
+const typeOfColor = (color: string): string => {
   switch (true) {
     // https://stackoverflow.com/a/8027444/1173898
     case /^(#)?[0-9A-F]{3}$/i.test(color):
@@ -37,8 +37,26 @@ const typeOfColor = (color: string): string | undefined => {
       return "named";
 
     default:
-      return undefined;
+      return "none";
   }
 };
 
-export { typeOfColor };
+const isValidColor = (color: string): boolean => {
+  switch (true) {
+    // https://stackoverflow.com/a/8027444/1173898
+    case /^(#)?[0-9A-F]{3}$/i.test(color):
+    case /^(#)?[0-9A-F]{6}$/i.test(color):
+    case /^(#)?[0-9A-F]{4}$/i.test(color):
+    case /^(#)?[0-9A-F]{8}$/i.test(color):
+    case color.indexOf("rgba") === 0 && color.indexOf(")") !== -1:
+    case color.indexOf("rgb") === 0 && color.indexOf(")") !== -1:
+    case color.indexOf("hsla") === 0 && color.indexOf(")") !== -1:
+    case color.indexOf("hsl") === 0 && color.indexOf(")") !== -1:
+    case lowerCaseNamedColors.includes(color.toLowerCase()):
+      return true;
+    default:
+      return false;
+  }
+};
+
+export { typeOfColor, isValidColor };

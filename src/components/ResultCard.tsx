@@ -7,7 +7,7 @@ type ResultCardProps = {
   color2: Array<number>;
   min: number;
   warn?: number;
-  textDecoration: string;
+  textDecoration?: string;
   label1: string;
   label2: string;
   className: string;

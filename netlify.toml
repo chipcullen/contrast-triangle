@@ -1,9 +1,3 @@
 [build]
   command = "npm run build"
-  publish = "build"
-
-[build.environment]
-  GENERATE_SOURCEMAP = "true"
-
-[build.production.environment]
-  GENERATE_SOURCEMAP = "true"
+  publish = "dist"

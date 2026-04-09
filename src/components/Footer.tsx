@@ -6,41 +6,52 @@ type FooterProps = {
   textDecoration: string;
 };
 
-const Footer: React.FC<FooterProps> = props => {
+const Footer: React.FC<FooterProps> = (props) => {
   const { textColor, linkColor, textDecoration } = props;
   return (
     <footer style={{ color: textColor }}>
-        &copy; {new Date().getFullYear()}{" "}
-        <a href="https://chipcullen.com"
+      &copy; {new Date().getFullYear()}{" "}
+      <a
+        href="https://chipcullen.com"
         style={{
           color: linkColor,
-          textDecoration: textDecoration
-        }}>
-          chip cullen</a> |{" "}
-        <a href="https://chipcullen.com/the-contrast-triangle/"
+          textDecoration: textDecoration,
+        }}
+      >
+        chip cullen
+      </a>{" "}
+      |{" "}
+      <a
+        href="https://chipcullen.com/the-contrast-triangle/"
         style={{
           color: linkColor,
-          textDecoration: textDecoration
-        }}>
-          explanatory blog post
-        </a>{" "}
-        |{" "}
-        <a href="https://github.com/chipcullen/contrast-triangle"
+          textDecoration: textDecoration,
+        }}
+      >
+        explanatory blog post
+      </a>{" "}
+      |{" "}
+      <a
+        href="https://github.com/chipcullen/contrast-triangle"
         style={{
           color: linkColor,
-          textDecoration: textDecoration
-        }}>
-          this project on github
-        </a>{" "}
-        |{" "}
-        <a href="https://twitter.com/chipcullen"
+          textDecoration: textDecoration,
+        }}
+      >
+        this project on github
+      </a>{" "}
+      |{" "}
+      <a
+        href="https://mastodon.social/@chipcullen"
+        rel="me"
         style={{
           color: linkColor,
-          textDecoration: textDecoration
-        }}>
-          i'm occasionally on twitter
-        </a>
-      </footer>
+          textDecoration: textDecoration,
+        }}
+      >
+        i'm occasionally on mastodon
+      </a>
+    </footer>
   );
 };
 

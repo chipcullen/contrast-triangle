@@ -1,8 +1,10 @@
+@use "sass:math";
 $bp: 800px;
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
+    Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .app {
@@ -237,11 +239,11 @@ $buttonsize: 32px;
 .underline-control__toggle {
   position: relative;
   height: $buttonsize;
-  padding: 4px ($buttonsize / 2);
+  padding: 4px #{math.div($buttonsize, 2)};
   transition: background-color 0.2s ease-in;
   border: 0;
-  border-radius: ($buttonsize / 2);
-  box-shadow: inset 0 0 1px 2px hsla(0, 0, 0, 0.2);
+  border-radius: #{math.div($buttonsize, 2)};
+  box-shadow: inset 0 0 1px 2px hsl(0deg 0% 0% / 20%);
   color: white;
   font-size: 16px;
   text-align: center;
@@ -252,7 +254,7 @@ $buttonsize: 32px;
     display: block;
     position: absolute;
     top: 2px;
-    left: calc(50% - #{$buttonsize / 2});
+    left: calc(50% - #{math.div($buttonsize, 2)});
     width: $buttonsize - 4;
     height: $buttonsize - 4;
     transition: transform 0.2s ease-in;
@@ -263,7 +265,7 @@ $buttonsize: 32px;
 
     border-radius: 50%;
     background-color: lightgray;
-    filter: drop-shadow(0 1px 2px hsla(0, 0, 0, 0.3));
+    filter: drop-shadow(0 1px 2px hsl(0deg 0% 0% / 30%));
   }
 
   // the text labels

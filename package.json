@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "colorjs.io": "^0.6.1",
     "query-string": "^9.3.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"

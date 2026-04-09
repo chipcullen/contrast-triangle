@@ -12,7 +12,7 @@ import { isValidColor } from "./utils/type-of-color";
 import { checkYourSelfBeforeYouHexYourself } from "./utils/check-yourself-before-you-hex-yourself";
 import { useQueryString } from "./utils/useQueryString";
 
-import { ReactComponent as Logo } from "./contrast-triangle-logo.svg";
+import Logo from "./contrast-triangle-logo.svg?react";
 
 import {
   ASSUMED_BACKGROUND_COLOR,

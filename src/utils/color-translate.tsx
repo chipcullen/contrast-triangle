@@ -1,38 +1,52 @@
-import { toRgb } from "./to-rgb";
-import { toRgba } from "./to-rgba";
-import { rgbArrayToHex, toHex } from "./to-hex";
-import { typeOfColor } from "./type-of-color";
+import Color from "colorjs.io";
+import { typeOfColor, normalizeForParsing } from "./type-of-color";
 import { calculateOverlay } from "./calculate-overlay";
 import { ASSUMED_BACKGROUND_COLOR } from "../Constants";
+
+const rgbArrayToHex = (rgb: Array<number>): string => {
+  return `#${rgb.map((v) => Math.round(v).toString(16).padStart(2, "0")).join("")}`;
+};
 
 const colorTranslate = (
   color: string,
   bgColorRgb: Array<number>,
-  isBackground: boolean = false ): ColorObject => {
-
-  const colorType = typeOfColor(color);
-
+  isBackground: boolean = false
+): ColorObject => {
   const result = {} as ColorObject;
-
   result.userValue = color;
-  result.type = colorType;
+  result.type = typeOfColor(color);
 
-  const colorTypesWithAlpha = ["rgba", "hsla", "hex4", "hex8"];
-  const isAlpha = colorTypesWithAlpha.includes(colorType);
-  result.alpha = isAlpha;
+  let parsed: Color;
+  try {
+    parsed = new Color(normalizeForParsing(color));
+  } catch {
+    return {
+      userValue: color,
+      type: "none",
+      alpha: false,
+      rgb: [255, 255, 255],
+      hex: "#ffffff",
+    };
+  }
 
-  const colorAsRgba = toRgba(color);
-  // baked in assumption of white behind the background
+  const hasAlpha = parsed.alpha < 1;
+  result.alpha = hasAlpha;
+
+  const srgb = parsed.toGamut({ space: "srgb" }).to("srgb");
+  const [r, g, b] = srgb.coords.map((v: number | null) =>
+    Math.round((v ?? 0) * 255)
+  );
+  const a = parsed.alpha;
+
   const bgRgb = isBackground ? ASSUMED_BACKGROUND_COLOR : bgColorRgb;
 
-  // if we have a transparent color
-  if (isAlpha && colorAsRgba) {
-    const overlayRgb = calculateOverlay(colorAsRgba, bgRgb);
+  if (hasAlpha) {
+    const overlayRgb = calculateOverlay([r, g, b, a], bgRgb);
     result.rgb = overlayRgb;
     result.hex = rgbArrayToHex(overlayRgb);
   } else {
-    result.rgb = toRgb(color);
-    result.hex = toHex(color);
+    result.rgb = [r, g, b];
+    result.hex = rgbArrayToHex([r, g, b]);
   }
 
   return result;
